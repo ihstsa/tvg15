@@ -2,6 +2,7 @@ package com.ihstsa.tvg15;
 
 public abstract class Tile
 {
+	public static final int SIZE = 50;
 	public AxialVector pos;
 	private HexGrid grid;
 	

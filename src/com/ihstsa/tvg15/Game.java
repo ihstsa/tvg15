@@ -14,12 +14,7 @@ public class Game
 	public Game()
 	{
 		manager = new EventManager(this);
-		manager.addHandler(Event.Type.CLOSED, new EventHandler(){
-			public void handle(Game game, Event event)
-			{
-				window.close();
-			}
-		});
+		manager.addHandler(Event.Type.CLOSED, new ClosedHandler());
 		manager.addHandler(Event.Type.KEY_PRESSED, new EventHandler(){
 			public void handle(Game game, Event event){
 				game.c = Color.YELLOW;
@@ -30,15 +25,22 @@ public class Game
 				game.c = Color.RED;
 			}
 		});
+		manager.addHandler(null, new EventHandler(){
+			int i = 0;
+			public void handle(Game game, Event event){
+				game.window.setTitle(""+i++);
+			}
+		});
 		window = new RenderWindow();
 		window.create(new VideoMode(640, 480), "tvg15");
 		window.setFramerateLimit(60);
 		while(window.isOpen())
 		{
+		    manager.handle(window);
+		    
 			window.clear(c);
 			window.display();
 			
-		    manager.handle(window);
 		}
 	}
 

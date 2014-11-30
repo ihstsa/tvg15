@@ -42,12 +42,17 @@ public class EventManager
 	{
 		for(Event e : window.pollEvents())
 		{
-			Set<EventHandler> hs = handlers.get(e.type);
-			if(hs == null) continue;
-			for(EventHandler r : hs)
-			{
-				r.handle(game, e);
-			}
+			this.handleEvent(e);
+		}
+		this.handleEvent(null);
+		
+	}
+	private void handleEvent(Event e){
+		Set<EventHandler> hs = handlers.get(e == null ? null : e.type);
+		if(hs == null) return;
+		for(EventHandler r : hs)
+		{
+			r.handle(game, e);
 		}
 	}
 }

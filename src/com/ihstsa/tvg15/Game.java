@@ -15,13 +15,17 @@ public class Game
 	{
 		manager = new EventManager(this);
 		manager.addHandler(Event.Type.CLOSED, new ClosedHandler());
-		manager.addHandler(Event.Type.KEY_PRESSED, new EventHandler(){
-			public void handle(Game game, Event event){
+		manager.addHandler(Event.Type.KEY_PRESSED, new EventHandler()
+		{
+			public void handle(Game game, Event event)
+			{
 				game.c = Color.YELLOW;
 			}
 		});
-		manager.addHandler(Event.Type.KEY_RELEASED, new EventHandler(){
-			public void handle(Game game, Event event){
+		manager.addHandler(Event.Type.KEY_RELEASED, new EventHandler()
+		{
+			public void handle(Game game, Event event)
+			{
 				game.c = Color.RED;
 			}
 		});

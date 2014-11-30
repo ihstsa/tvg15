@@ -14,9 +14,9 @@ public class EventManager
 	Map<Event.Type, Set<EventHandler>> handlers = new HashMap<Event.Type, Set<EventHandler>>();
 	Game game;
 	
-	public EventManager(Game game_)
+	public EventManager(Game game)
 	{
-		game = game_;
+		this.game = game;
 	}
 	
 	public EventHandler addHandler(Event.Type eventType, EventHandler eventHandler)

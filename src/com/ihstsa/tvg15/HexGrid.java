@@ -53,17 +53,76 @@ public class HexGrid
 		return m.get(r);
 	}
 	
-	Tile getRelative(Tile t, HexDirection s){
-		return getRelative(t, s, 1);
+	/**
+	 * Gets the Tile 1 unit in the given direction from a given Tile
+	 * @param t The tile to look from
+	 * @param s The direction to go in
+	 * @return The tile 1 unit in the given direction
+	 */
+	public Tile getRelativeTile(Tile t, HexDirection s)
+	{
+		return getRelativeTile(t, s, 1);
 	}
-	Tile getRelative(Tile t, HexDirection s, int n){
-		return getRelative(t.pos.q, t.pos.r, s, n);
+	
+	/**
+	 * Gets the Tile a given distance in a given direction from a given Tile
+	 * @param t The tile to look from
+	 * @param s The direction to go in
+	 * @param n The distance to go
+	 * @return The tile in the given direction a given units away from a given Tile 
+	 */
+	public Tile getRelativeTile(Tile t, HexDirection s, int n)
+	{
+		return getRelativeTile(t.pos, s, n);
 	}
-	Tile getRelative(int q, int r, HexDirection s){
-		return getRelative(q, r, s, 1);
+	
+	/**
+	 * Gets the Tile 1 unit away from a given AxialVector in a given direction
+	 * @param v The AxialVector to go from
+	 * @param s The direction to move in
+	 * @return The tile specified
+	 */
+	public Tile getRelativeTile(AxialVector v, HexDirection s)
+	{
+		return getRelativeTile(v.q, v.r, s);
 	}
-	Tile getRelative(int q, int r, HexDirection s, int n){
-		switch(s){
+	
+	/**
+	 * Gets the Tile a given distance from a given AxialVector in a given direction
+	 * @param v The AxialVector to go from
+	 * @param s The direction to move in
+	 * @param n The distance to move
+	 * @return The tile specified
+	 */
+	public Tile getRelativeTile(AxialVector v, HexDirection s, int n)
+	{
+		return getRelativeTile(v.q, v.r, s, n);
+	}
+	
+	/**
+	 * Gets the Tile 1 unit from a given point in a given direction
+	 * @param q The q of the point to go from
+	 * @param r The r of the point to go from
+	 * @param s The direction to move in
+	 * @return The specified tile
+	 */
+	public Tile getRelativeTile(int q, int r, HexDirection s)
+	{
+		return getRelativeTile(q, r, s, 1);
+	}
+	
+	/**
+	 * Gets the Tile a given distance from a given point in a given direction
+	 * @param q The q of the point to go from
+	 * @param r The r of the point to go from
+	 * @param s The direction to move in
+	 * @param n The distance to move in
+	 * @return The specified tile
+	 */
+	public Tile getRelativeTile(int q, int r, HexDirection s, int n)
+	{
+		switch(s)
+		{
 			case TOP:
 				return getTile(q, r-n);
 			case TOP_RIGHT:
@@ -77,6 +136,7 @@ public class HexGrid
 			case TOP_LEFT:
 				return getTile(q-n, r);
 		}
+		
 		return null;
 	}
 

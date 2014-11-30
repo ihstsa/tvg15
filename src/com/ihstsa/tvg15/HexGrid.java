@@ -3,6 +3,8 @@ package com.ihstsa.tvg15;
 import java.util.Map;
 import java.util.HashMap;
 
+import org.jsfml.system.Vector2i;
+
 //       /
 //      /
 //     /
@@ -40,6 +42,16 @@ public class HexGrid
 	}
 	
 	/**
+	 * Gets a tile at a given AxialVector
+	 * @param v The AxialVector to get the Tile from
+	 * @return The given tile
+	 */
+	public Tile getTile(AxialVector v)
+	{
+		return getTile(v.q, v.r);
+	}
+	
+	/**
 	 * Gets the hex tile at a given q and r position
 	 * (using axial coordinates)
 	 * @param q The q of the desired tile
@@ -51,6 +63,18 @@ public class HexGrid
 		HashMap<Integer, Tile> m = grid.get(q);
 		if(m == null) return null;
 		return m.get(r);
+	}
+	
+	/**
+	 * Gets the tile at a certain pixel location
+	 * @param pos The pixel location to look at
+	 * @return The given Tile
+	 */
+	public Tile tileForPixel(Vector2i pos)
+	{
+		double q = 2./3 * pos.x / Tile.SIZE;
+		double r = (-1./3 * pos.x + 1./3*Math.sqrt(3) * pos.y) / Tile.SIZE;
+		return getTile((int)q,(int) r);
 	}
 	
 	/**

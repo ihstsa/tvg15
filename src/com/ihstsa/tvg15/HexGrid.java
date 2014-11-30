@@ -3,6 +3,15 @@ package com.ihstsa.tvg15;
 import java.util.Map;
 import java.util.HashMap;
 
+//       /
+//      /
+//     /
+//----X---+q
+//   /
+//  /
+// /
+//+r
+
 public class HexGrid 
 {
 	private Map<Integer, HashMap<Integer, Tile>> grid;
@@ -43,4 +52,32 @@ public class HexGrid
 		if(m == null) return null;
 		return m.get(r);
 	}
+	
+	Tile getRelative(Tile t, HexDirection s){
+		return getRelative(t, s, 1);
+	}
+	Tile getRelative(Tile t, HexDirection s, int n){
+		return getRelative(t.q, t.r, s, n);
+	}
+	Tile getRelative(int q, int r, HexDirection s){
+		return getRelative(q, r, s, 1);
+	}
+	Tile getRelative(int q, int r, HexDirection s, int n){
+		switch(s){
+			case TOP:
+				return getTile(q, r-n);
+			case TOP_RIGHT:
+				return getTile(q+n, r-n);
+			case BOT_RIGHT:
+				return getTile(q+n, r);
+			case BOT:
+				return getTile(q, r+n);
+			case BOT_LEFT:
+				return getTile(q-n, r+n);
+			case TOP_LEFT:
+				return getTile(q-n, r);
+		}
+		return null;
+	}
+
 }

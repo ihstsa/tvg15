@@ -7,7 +7,7 @@ package com.ihstsa.tvg15;
  */
 public class AxialVector
 {
-	public int q,r;
+	public int q, r;
 	
 	/**
 	 * Creates an Axial Vector

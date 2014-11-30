@@ -30,13 +30,13 @@ public class HexGrid
 	 */
 	public void putTile(Tile tile)
 	{
-		HashMap<Integer, Tile> m = grid.get(tile.q);
+		HashMap<Integer, Tile> m = grid.get(tile.pos.q);
 		if(m == null)
 		{
 			m = new HashMap<Integer, Tile>();
-			grid.put(tile.q, m);
+			grid.put(tile.pos.q, m);
 		}
-		m.put(tile.r, tile);
+		m.put(tile.pos.r, tile);
 	}
 	
 	/**
@@ -57,7 +57,7 @@ public class HexGrid
 		return getRelative(t, s, 1);
 	}
 	Tile getRelative(Tile t, HexDirection s, int n){
-		return getRelative(t.q, t.r, s, n);
+		return getRelative(t.pos.q, t.pos.r, s, n);
 	}
 	Tile getRelative(int q, int r, HexDirection s){
 		return getRelative(q, r, s, 1);

@@ -1,7 +1,9 @@
 package com.ihstsa.tvg15;
 
+import org.jsfml.graphics.CircleShape;
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.RenderWindow;
+import org.jsfml.system.Vector2f;
 import org.jsfml.window.VideoMode;
 import org.jsfml.window.event.Event;
 
@@ -10,39 +12,29 @@ public class Game
 	
 	RenderWindow window;
 	EventManager manager;
-	Color c = Color.RED;
+	Renderer renderer;
+	HexGrid grid;
 	public Game()
 	{
 		manager = new EventManager(this);
 		manager.addHandler(Event.Type.CLOSED, new ClosedHandler());
-		manager.addHandler(Event.Type.KEY_PRESSED, new EventHandler()
-		{
-			public void handle(Game game, Event event)
-			{
-				game.c = Color.YELLOW;
-			}
-		});
-		manager.addHandler(Event.Type.KEY_RELEASED, new EventHandler()
-		{
-			public void handle(Game game, Event event)
-			{
-				game.c = Color.RED;
-			}
-		});
-		manager.addHandler(null, new EventHandler(){
-			int i = 0;
-			public void handle(Game game, Event event){
-				game.window.setTitle(""+i++);
-			}
-		});
+		CircleShape t = new CircleShape(20);
+		t.setOutlineThickness(5);
+		t.setOutlineColor(Color.BLACK);
+		grid = new HexGrid();
+		renderer = new Renderer();
+		renderer.root.children.add(new Tile(grid, new AxialVector(0, 0)));
+		renderer.root.children.add(new Tile(grid, new AxialVector(0, 1)));
+		renderer.root.children.add(new Tile(grid, new AxialVector(1, 0)));
+		renderer.root.children.add(new Tile(grid, new AxialVector(1, 1)));
+		manager.addHandler(null, renderer);
 		window = new RenderWindow();
 		window.create(new VideoMode(640, 480), "tvg15");
 		window.setFramerateLimit(60);
 		while(window.isOpen())
 		{
+			window.clear(Color.WHITE);
 		    manager.handle(window);
-		    
-			window.clear(c);
 			window.display();
 			
 		}

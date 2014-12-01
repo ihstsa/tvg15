@@ -1,5 +1,10 @@
 package com.ihstsa.tvg15;
 
+/**
+ * Main class that does nothing but initializes a {@link Game}
+ * @author Paul
+ *
+ */
 public class Main 
 {
 

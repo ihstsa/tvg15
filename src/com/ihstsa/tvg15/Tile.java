@@ -41,7 +41,7 @@ public class Tile extends GameObject
 	
 	/**
 	 * Gets the pixel position of the Tile's center, as a Vector2f.
-	 * @return the pixel position of the Tile's center, as a Vector2f.
+	 * @return the center pixel position
 	 */
 	public Vector2f getPos(){
 		return new Vector2f((float) (SIZE * 3./2. * pos.q), (float) (SIZE * Math.sqrt(3) * (pos.r+(pos.q/2.))));

@@ -3,10 +3,14 @@ package com.ihstsa.tvg15;
 import org.jsfml.graphics.CircleShape;
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.RenderWindow;
-import org.jsfml.system.Vector2f;
 import org.jsfml.window.VideoMode;
 import org.jsfml.window.event.Event;
 
+/**
+ * The "Main class" of this game. Currently mostly for testing.
+ * @author Paul
+ *
+ */
 public class Game 
 {
 	

@@ -1,11 +1,19 @@
 package com.ihstsa.tvg15;
 
-import org.jsfml.graphics.Drawable;
-import org.jsfml.graphics.Transformable;
 import org.jsfml.system.Vector2f;
-
+/**
+ * A subclass of {@link GameObject} that does nothing and only serves as a container for other objects.
+ * @author Paul
+ *
+ */
 public class RootObject extends GameObject {
+	private static Vector2f base = new Vector2f(0, 0);
 	public RootObject(){
-		super(new Vector2f(0, 0));
+		super();
+	}
+
+	@Override
+	public Vector2f getPos() {
+		return base;
 	}
 }

@@ -2,7 +2,7 @@ package com.ihstsa.tvg15;
 
 /**
  * Stores an axial vector
- * @author Frøjya Ryd
+ * @author Freya
  * @version 11-30-14
  */
 public class AxialVector
@@ -10,7 +10,7 @@ public class AxialVector
 	public int q, r;
 	
 	/**
-	 * Creates an Axial Vector
+	 * Creates an {@link AxialVector}
 	 *  @param q The q coordinate.
 	 *  @param r The r coordinate.
 	 */
@@ -21,8 +21,8 @@ public class AxialVector
 	}
 	
 	/**
-	 * Finds z if using a cubic coordinate system
-	 * @return Z if using a cubic coordinate system.
+	 * Finds the cubic coordinate Z
+	 * @return the Z value
 	 */
 	public int getZ()
 	{

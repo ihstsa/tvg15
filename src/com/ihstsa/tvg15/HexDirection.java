@@ -1,5 +1,10 @@
 package com.ihstsa.tvg15;
 
+/**
+ * Directions on a flat-topped hexagon
+ * @author Jacob
+ *
+ */
 public enum HexDirection
 {
 	TOP,

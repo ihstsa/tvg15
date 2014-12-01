@@ -14,6 +14,11 @@ import org.jsfml.system.Vector2i;
 // /
 //+r
 
+/**
+ * A class representing the grid of tiles. Will be a {@link GameObject} at some point.
+ * @author Paul
+ *
+ */
 public class HexGrid 
 {
 	private Map<Integer, HashMap<Integer, Tile>> grid;
@@ -112,18 +117,6 @@ public class HexGrid
 	}
 	
 	/**
-	 * Gets the Tile a given distance from a given AxialVector in a given direction
-	 * @param v The AxialVector to go from
-	 * @param s The direction to move in
-	 * @param n The distance to move
-	 * @return The tile specified
-	 */
-	public Tile getRelativeTile(AxialVector v, HexDirection s, int n)
-	{
-		return getRelativeTile(v.q, v.r, s, n);
-	}
-	
-	/**
 	 * Gets the Tile 1 unit from a given point in a given direction
 	 * @param q The q of the point to go from
 	 * @param r The r of the point to go from
@@ -133,6 +126,18 @@ public class HexGrid
 	public Tile getRelativeTile(int q, int r, HexDirection s)
 	{
 		return getRelativeTile(q, r, s, 1);
+	}
+	
+	/**
+	 * Gets the Tile a given distance from a given AxialVector in a given direction
+	 * @param v The AxialVector to go from
+	 * @param s The direction to move in
+	 * @param n The distance to move
+	 * @return The tile specified
+	 */
+	public Tile getRelativeTile(AxialVector v, HexDirection s, int n)
+	{
+		return getRelativeTile(v.q, v.r, s, n);
 	}
 	
 	/**

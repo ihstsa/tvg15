@@ -5,7 +5,7 @@ import org.jsfml.graphics.Color;
 import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 
-public class Tile extends GameObject<CircleShape>
+public class Tile extends GameObject
 {
 	public static final int SIZE = 50;
 	public AxialVector pos;
@@ -24,7 +24,7 @@ public class Tile extends GameObject<CircleShape>
 		circleShape.setOutlineColor(Color.BLACK);
 		circleShape.setOutlineThickness(2);
 		circleShape.rotate(30);
-		this.object = circleShape;
+		this.setObject(circleShape);
 		pos = point;
 	}
 	

@@ -4,12 +4,12 @@ import org.jsfml.window.event.Event;
 
 public class Renderer implements EventHandler {
 	
-	public GameObject<?> root;
+	public GameObject root;
 	
 	public Renderer(){
-		this(new RootObject<>());
+		this(new RootObject());
 	}
-	public Renderer(GameObject<?> root){
+	public Renderer(GameObject root){
 		this.root = root;
 	}
 

@@ -1,5 +1,7 @@
 package com.ihstsa.tvg15;
 
+import java.util.List;
+
 import org.jsfml.graphics.CircleShape;
 import org.jsfml.graphics.Color;
 import org.jsfml.system.Vector2f;
@@ -12,7 +14,8 @@ public class Tile extends GameObject
 	private CircleShape circleShape;
 	
 	/**
-	 * Makes a Tile
+	 * Makes a Tile. This constructor should not be used outside of HexGrid.
+	 * Use {@link HexGrid.createTile} to create new tiles.
 	 * @param grid The grid the tile will be on.
 	 * @param point The point on which the hexagon lies.
 	 */
@@ -28,7 +31,8 @@ public class Tile extends GameObject
 	}
 	
 	/**
-	 * Makes a Tile
+	 * Makes a Tile. This constructor should not be used outside of HexGrid.
+	 * Use {@link HexGrid.createTile} to create new tiles.
 	 * @param grid The grid the tile will be on.
 	 * @param q The q position of the Tile.
 	 * @param r The r position of the Tile.
@@ -45,5 +49,10 @@ public class Tile extends GameObject
 	 */
 	public Vector2f getPos(){
 		return new Vector2f((float) (SIZE * 3./2. * pos.q), (float) (SIZE * Math.sqrt(3) * (pos.r+(pos.q/2.))));
+	}
+
+	@Override
+	List<GameObject> getChildren() {
+		return null;
 	}
 }

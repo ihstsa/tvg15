@@ -3,6 +3,7 @@ package com.ihstsa.tvg15;
 import org.jsfml.graphics.CircleShape;
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.RenderWindow;
+import org.jsfml.system.Vector2f;
 import org.jsfml.window.VideoMode;
 import org.jsfml.window.event.Event;
 
@@ -25,12 +26,13 @@ public class Game
 		CircleShape t = new CircleShape(20);
 		t.setOutlineThickness(5);
 		t.setOutlineColor(Color.BLACK);
-		grid = new HexGrid();
+		grid = new HexGrid(new Vector2f(0, 0));
 		renderer = new Renderer();
-		renderer.root.children.add(new Tile(grid, new AxialVector(0, 0)));
-		renderer.root.children.add(new Tile(grid, new AxialVector(0, 1)));
-		renderer.root.children.add(new Tile(grid, new AxialVector(1, 0)));
-		renderer.root.children.add(new Tile(grid, new AxialVector(1, 1)));
+		renderer.root.getChildren().add(grid);
+		grid.createTile(new AxialVector(0, 0));
+		grid.createTile(new AxialVector(0, 1));
+		grid.createTile(new AxialVector(1, 0));
+		grid.createTile(new AxialVector(1, 1));
 		manager.addHandler(null, renderer);
 		window = new RenderWindow();
 		window.create(new VideoMode(640, 480), "tvg15");

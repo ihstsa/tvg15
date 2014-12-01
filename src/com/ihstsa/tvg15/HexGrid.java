@@ -1,34 +1,54 @@
 package com.ihstsa.tvg15;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 
+import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 
-//       /
-//      /
-//     /
-//----X---+q
-//   /
-//  /
-// /
-//+r
+/*
+       /
+      /
+     /
+----X---+q
+   /
+  /
+ /
++r
+*/
 
 /**
- * A class representing the grid of tiles. Will be a {@link GameObject} at some point.
+ * A class representing the grid of tiles. Is a {@link GameObject} that can be will render all contained tiles.
  * @author Paul
  *
  */
-public class HexGrid 
+public class HexGrid extends GameObject
 {
 	private Map<Integer, HashMap<Integer, Tile>> grid;
+	public List<Tile> tiles;
+	private Vector2f pos;
 	
 	/**
 	 * Constructs a HexGrid
 	 */
-	public HexGrid()
+	public HexGrid(Vector2f pos)
 	{
 		grid = new HashMap<Integer, HashMap<Integer, Tile>>();
+		tiles = new ArrayList<Tile>();
+		this.pos = pos;
+	}
+	
+	/**
+	 * Creates a tile at the given coordinates and stores it in the grid
+	 * @param v
+	 * @return The newly created tile
+	 */
+	public Tile createTile(AxialVector v){
+		Tile t = new Tile(this, v);
+		putTile(t);
+		return t;
 	}
 	
 	/**
@@ -44,6 +64,7 @@ public class HexGrid
 			grid.put(tile.pos.q, m);
 		}
 		m.put(tile.pos.r, tile);
+		tiles.add(tile);
 	}
 	
 	/**
@@ -167,6 +188,17 @@ public class HexGrid
 		}
 		
 		return null;
+	}
+
+	@Override
+	public Vector2f getPos() {
+		return pos;
+	}
+
+	@SuppressWarnings("unchecked") // I'm quite sure that this cast is type-safe
+	@Override
+	List<GameObject> getChildren() {
+		return (List<GameObject>)((List<? extends GameObject>)tiles);
 	}
 
 }

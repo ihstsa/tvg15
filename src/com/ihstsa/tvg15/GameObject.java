@@ -1,6 +1,5 @@
 package com.ihstsa.tvg15;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.jsfml.system.Vector2f;
@@ -23,18 +22,12 @@ public abstract class GameObject {
 	 * type checking. 
 	 */
 	private Object jsfmlObject;
-	/**
-	 * The child objects that this GameObject renders. Their positions are relative.
-	 */
-	List<GameObject> children;
-	
 	public GameObject(){
 		this(null);
 	}
 	
 	public GameObject(Object jsfmlObject){
 		this.setObject(jsfmlObject);
-		children = new ArrayList<GameObject>();
 	}
 	
 	/**
@@ -60,6 +53,8 @@ public abstract class GameObject {
 			((Transformable)getObject()).setPosition(base);
 			window.draw((Drawable)getObject());
 		}
+		List<GameObject> children = getChildren();
+		if(children == null) return;
 		for(GameObject o : children){
 			o.render(window, base);
 		}
@@ -77,4 +72,6 @@ public abstract class GameObject {
 		}
 		this.jsfmlObject = jsfmlObject;
 	}
+
+	abstract List<GameObject> getChildren();
 }

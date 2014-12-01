@@ -36,6 +36,7 @@ public abstract class GameObject {
 	 * @return the location
 	 */
 	public abstract Vector2f getPos();
+	public abstract void setPos(Vector2f pos);
 	
 	public void render(RenderWindow window){
 		render(window, new Vector2f(0, 0));

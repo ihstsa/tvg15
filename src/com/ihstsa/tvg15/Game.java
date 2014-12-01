@@ -23,19 +23,20 @@ public class Game
 	{
 		manager = new EventManager(this);
 		manager.addHandler(Event.Type.CLOSED, new ClosedHandler());
-		CircleShape t = new CircleShape(20);
-		t.setOutlineThickness(5);
-		t.setOutlineColor(Color.BLACK);
 		grid = new HexGrid(new Vector2f(0, 0));
 		renderer = new Renderer();
-		renderer.root.getChildren().add(grid);
-		grid.createTile(new AxialVector(0, 0));
-		grid.createTile(new AxialVector(0, 1));
-		grid.createTile(new AxialVector(1, 0));
-		grid.createTile(new AxialVector(1, 1));
+		StandardGameObject sgo = new StandardGameObject();
+		sgo.setPos(new Vector2f(50, 50));
+		renderer.root.getChildren().add(sgo);
+		sgo.getChildren().add(grid);
+		for(int i = 0; i < 16; i++){
+			for(int j = 0; j < 8; j++){
+				grid.createTile(new AxialVector(i, j-(i/2)));
+			}
+		}
 		manager.addHandler(null, renderer);
 		window = new RenderWindow();
-		window.create(new VideoMode(640, 480), "tvg15");
+		window.create(new VideoMode(1366, 768), "tvg15");
 		window.setFramerateLimit(60);
 		while(window.isOpen())
 		{

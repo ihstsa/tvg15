@@ -7,10 +7,8 @@ import org.jsfml.system.Vector2f;
  *
  */
 public class RootObject extends StandardGameObject {
-	private static Vector2f base = new Vector2f(0, 0);
 	public RootObject(){
 		super();
-		this.pos = base;
 	}
 
 	@Override

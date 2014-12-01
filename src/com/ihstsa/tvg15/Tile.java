@@ -26,6 +26,7 @@ public class Tile extends GameObject
 		circleShape.setOutlineColor(Color.BLACK);
 		circleShape.setOutlineThickness(2);
 		circleShape.rotate(30);
+		circleShape.setOrigin(SIZE, SIZE);
 		this.setObject(circleShape);
 		pos = point;
 	}
@@ -50,9 +51,14 @@ public class Tile extends GameObject
 	public Vector2f getPos(){
 		return new Vector2f((float) (SIZE * 3./2. * pos.q), (float) (SIZE * Math.sqrt(3) * (pos.r+(pos.q/2.))));
 	}
+	@Override
+	public void setPos(Vector2f pos) {
+		
+	}
 
 	@Override
 	List<GameObject> getChildren() {
 		return null;
 	}
+
 }

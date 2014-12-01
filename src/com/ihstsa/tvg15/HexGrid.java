@@ -194,6 +194,10 @@ public class HexGrid extends GameObject
 	public Vector2f getPos() {
 		return pos;
 	}
+	@Override
+	public void setPos(Vector2f pos) {
+		this.pos = pos;
+	}
 
 	@SuppressWarnings("unchecked") // I'm quite sure that this cast is type-safe
 	@Override

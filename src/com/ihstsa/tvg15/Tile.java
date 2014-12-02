@@ -23,9 +23,9 @@ public class Tile extends GameObject
 	public Tile(HexGrid grid, AxialVector point)
 	{
 		this.grid = grid;
-		circleShape = new CircleShape(SIZE, 6);
+		circleShape = new CircleShape(SIZE-3, 6);
 		circleShape.setOutlineColor(outlineColor);
-		circleShape.setOutlineThickness(6);
+		circleShape.setOutlineThickness(3);
 		circleShape.rotate(30);
 		//circleShape.setOutlineColor()
 		circleShape.setOrigin(SIZE, SIZE);

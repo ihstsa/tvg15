@@ -34,10 +34,12 @@ public class Game
 				Vector2f gridOffset = grid.getAbsoluteOffset();
 				Vector2f gridRelative = Vector2f.sub(new Vector2f(mbe.position.x, mbe.position.y), gridOffset);
 				Tile tile = grid.tileForPixel(new Vector2i((int)gridRelative.x, (int)gridRelative.y));
-				tile.circleShape.setOutlineColor(Color.BLACK);
+				if(tile != null){
+					tile.circleShape.setOutlineColor(Color.BLACK);
+				}
 			}
 		});
-		grid = new HexGrid(new Vector2f(100, 100));
+		grid = new HexGrid(new Vector2f(160, 160));
 		renderer = new Renderer();
 		StandardGameObject sgo = new StandardGameObject();
 		sgo.setPos(new Vector2f(0, 0));

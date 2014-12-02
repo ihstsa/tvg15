@@ -58,6 +58,9 @@ public abstract class GameObject {
 			x += o.getPos().x;
 			y += o.getPos().y;
 			if(o.parent == null) break;
+			if(o.parent == o){
+				throw new IllegalStateException("No GameObject can be its own parent");
+			}
 			o = o.parent;
 		}
 		return new Vector2f(x, y);

@@ -30,7 +30,7 @@ public class EventManager
 	 * @param eventHandler The {@link EventHandler} to register.
 	 * @return
 	 */
-	public EventHandler addHandler(Event.Type eventType, EventHandler eventHandler)
+	public <T extends EventHandler> T addHandler(Event.Type eventType, T eventHandler)
 	{
 		Set<EventHandler> hs = handlers.get(eventType);
 		if(hs == null)

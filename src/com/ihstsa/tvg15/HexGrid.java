@@ -7,6 +7,8 @@ import java.util.HashMap;
 
 import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
+import org.jsfml.system.Vector3f;
+import org.jsfml.system.Vector3i;
 
 /*
        /
@@ -47,6 +49,7 @@ public class HexGrid extends GameObject
 	 */
 	public Tile createTile(AxialVector v){
 		Tile t = new Tile(this, v);
+		t.parent = this;
 		putTile(t);
 		return t;
 	}
@@ -98,9 +101,10 @@ public class HexGrid extends GameObject
 	 */
 	public Tile tileForPixel(Vector2i pos)
 	{
-		double q = 2./3 * pos.x / Tile.SIZE;
-		double r = (-1./3 * pos.x + 1./3*Math.sqrt(3) * pos.y) / Tile.SIZE;
-		return getTile((int)q,(int) r);
+		double q = 2./3. * pos.x / Tile.SIZE;
+		double r = (-1./3. * pos.x + 1./3.*Math.sqrt(3) * pos.y) / Tile.SIZE;
+		AxialVector v = AxialVector.fromCubic(Utilities.hexRound(new Vector3f((float)q, (float)(-q - r), (float)r)));
+		return getTile(v);
 	}
 	
 	/**

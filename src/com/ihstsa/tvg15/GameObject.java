@@ -22,6 +22,7 @@ public abstract class GameObject {
 	 * type checking. 
 	 */
 	private Object jsfmlObject;
+	public GameObject parent;
 	public GameObject(){
 		this(null);
 	}
@@ -38,6 +39,30 @@ public abstract class GameObject {
 	public abstract Vector2f getPos();
 	public abstract void setPos(Vector2f pos);
 	
+	protected void draw(RenderWindow window, Vector2f offset){
+		Object o = getObject();
+		if(o == null) return;
+		((Transformable)o).setPosition(offset);
+		window.draw((Drawable)o);
+	}
+	
+	public void addChild(GameObject child){
+		getChildren().add(child);
+		child.parent = this;
+	}
+	
+	public Vector2f getAbsoluteOffset(){
+		GameObject o = this;
+		float x = 0, y = 0;
+		while(true){
+			x += o.getPos().x;
+			y += o.getPos().y;
+			if(o.parent == null) break;
+			o = o.parent;
+		}
+		return new Vector2f(x, y);
+	}
+	
 	public void render(RenderWindow window){
 		render(window, new Vector2f(0, 0));
 	}
@@ -50,10 +75,7 @@ public abstract class GameObject {
 	 */
 	public void render(RenderWindow window, Vector2f offset){
 		Vector2f base = Vector2f.add(offset, getPos());
-		if(getObject() != null){
-			((Transformable)getObject()).setPosition(base);
-			window.draw((Drawable)getObject());
-		}
+		draw(window, base);
 		List<GameObject> children = getChildren();
 		if(children == null) return;
 		for(GameObject o : children){
@@ -69,7 +91,7 @@ public abstract class GameObject {
 	 */
 	public void setObject(Object jsfmlObject) {
 		if(jsfmlObject != null && !(jsfmlObject instanceof Drawable && jsfmlObject instanceof Transformable)){
-			throw new IllegalArgumentException("object must implement both Drawable and Transformable");
+			throw new IllegalArgumentException("jsfmlObject must implement both Drawable and Transformable");
 		}
 		this.jsfmlObject = jsfmlObject;
 	}

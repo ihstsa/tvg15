@@ -8,14 +8,15 @@ import org.jsfml.system.Vector2f;
 
 public class Tile extends GameObject
 {
-	public static final int SIZE = 50;
+	public static final int SIZE = 150;
+	private static final Color outlineColor = new Color(0x10, 0x10, 0xaf, 0x22);
 	public AxialVector pos;
 	private HexGrid grid;
-	private CircleShape circleShape;
+	CircleShape circleShape;
 	
 	/**
 	 * Makes a Tile. This constructor should not be used outside of HexGrid.
-	 * Use {@link HexGrid.createTile} to create new tiles.
+	 * Use {@link HexGrid#createTile} to create new tiles.
 	 * @param grid The grid the tile will be on.
 	 * @param point The point on which the hexagon lies.
 	 */
@@ -23,9 +24,10 @@ public class Tile extends GameObject
 	{
 		this.grid = grid;
 		circleShape = new CircleShape(SIZE, 6);
-		circleShape.setOutlineColor(Color.BLACK);
-		circleShape.setOutlineThickness(2);
+		circleShape.setOutlineColor(outlineColor);
+		circleShape.setOutlineThickness(6);
 		circleShape.rotate(30);
+		//circleShape.setOutlineColor()
 		circleShape.setOrigin(SIZE, SIZE);
 		this.setObject(circleShape);
 		pos = point;
@@ -33,7 +35,7 @@ public class Tile extends GameObject
 	
 	/**
 	 * Makes a Tile. This constructor should not be used outside of HexGrid.
-	 * Use {@link HexGrid.createTile} to create new tiles.
+	 * Use {@link HexGrid#createTile} to create new tiles.
 	 * @param grid The grid the tile will be on.
 	 * @param q The q position of the Tile.
 	 * @param r The r position of the Tile.

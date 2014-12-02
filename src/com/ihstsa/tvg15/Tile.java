@@ -55,12 +55,31 @@ public class Tile extends GameObject
 	}
 	@Override
 	public void setPos(Vector2f pos) {
-		
+		throw new UnsupportedOperationException("Tile cannot be moved by pixels");
 	}
 
 	@Override
 	List<GameObject> getChildren() {
 		return null;
+	}
+	
+	/**
+	 * Gets a tile to the side of this tile.
+	 * @param direction direction to go on the grid
+	 * @return The neighbor tile
+	 */
+	public Tile getRelative(HexDirection direction){
+		return getRelative(direction, 1);
+	}
+	
+	/**
+	 * Gets a tile relative to this tile
+	 * @param direction direction to go on the grid
+	 * @param n number of tiles to go
+	 * @return The relative
+	 */
+	public Tile getRelative(HexDirection direction, int n){
+		return grid.getRelativeTile(this, direction, n);
 	}
 
 }

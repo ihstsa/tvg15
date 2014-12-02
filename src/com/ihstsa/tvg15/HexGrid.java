@@ -8,7 +8,6 @@ import java.util.HashMap;
 import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 import org.jsfml.system.Vector3f;
-import org.jsfml.system.Vector3i;
 
 /*
        /

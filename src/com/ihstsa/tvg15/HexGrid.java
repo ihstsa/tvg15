@@ -21,7 +21,7 @@ import org.jsfml.system.Vector3f;
 */
 
 /**
- * A class representing the grid of tiles. Is a {@link GameObject} that can be will render all contained tiles.
+ * A class representing the grid of tiles. Is a {@link GameObject} that will render all contained tiles.
  * @author Paul
  *
  */
@@ -33,6 +33,7 @@ public class HexGrid extends GameObject
 	
 	/**
 	 * Constructs a HexGrid
+	 * @argument pos The position of the HexGrid
 	 */
 	public HexGrid(Vector2f pos)
 	{

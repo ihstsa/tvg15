@@ -5,9 +5,13 @@ import java.util.List;
 
 import org.jsfml.system.Vector2f;
 
+/**
+ * A GameObject that has a position and its own children list, and will render itself and its children
+ * @author Paul
+ *
+ */
 public class StandardGameObject extends GameObject {
 	
-	public static Vector2f base = new Vector2f(0, 0);
 	protected Vector2f pos;
 	protected List<GameObject> children;
 	
@@ -18,7 +22,7 @@ public class StandardGameObject extends GameObject {
 	public StandardGameObject(Object jsfmlObject){
 		super(jsfmlObject);
 		children = new ArrayList<GameObject>();
-		pos = base;
+		pos = Vector2f.ZERO;
 	}
 	
 	@Override

@@ -22,6 +22,11 @@ public class AxialVector
 		this.r = r;
 	}
 	
+	/**
+	 * Creates an AxialVector from cubic coordinates
+	 * @param cubic the cubic coordinates
+	 * @return the new AxialVector
+	 */
 	public static AxialVector fromCubic(Vector3i cubic){
 		return new AxialVector(cubic.x, cubic.z);
 	}

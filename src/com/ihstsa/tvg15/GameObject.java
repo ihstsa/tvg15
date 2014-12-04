@@ -33,7 +33,7 @@ public abstract class GameObject {
 	
 	/**
 	 * Returns the location of this GameObject. This is a method instead of a property so it can be
-	 * more conveniently overridden by subclasses.
+	 * overridden by subclasses.
 	 * @return the location
 	 */
 	public abstract Vector2f getPos();
@@ -67,7 +67,7 @@ public abstract class GameObject {
 	}
 	
 	public void render(RenderWindow window){
-		render(window, new Vector2f(0, 0));
+		render(window, Vector2f.ZERO);
 	}
 	
 	/**

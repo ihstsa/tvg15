@@ -13,6 +13,6 @@ public class RootObject extends StandardGameObject {
 
 	@Override
 	public Vector2f getPos() {
-		return base;
+		return Vector2f.ZERO;
 	}
 }

@@ -3,7 +3,23 @@ package com.ihstsa.tvg15;
 import org.jsfml.system.Vector3f;
 import org.jsfml.system.Vector3i;
 
-public class Utilities {
+/**
+ * Utility class
+ * @author Paul
+ *
+ */
+public final class Utilities {
+	
+	// Prevent construction
+	private Utilities(){
+		
+	}
+	
+	/**
+	 * Rounds cubic hexagon coordinates to the nearest hex
+	 * @param in Floating-point coordinates
+	 * @return Rounded coordinates
+	 */
 	public static Vector3i hexRound(Vector3f in){
 		int rx = Math.round(in.x);
 		int ry = Math.round(in.y);

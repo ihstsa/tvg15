@@ -1,7 +1,13 @@
 package com.ihstsa.tvg15;
 
+import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+
 import org.jsfml.graphics.Color;
+import org.jsfml.graphics.Image;
 import org.jsfml.graphics.RenderWindow;
+import org.jsfml.graphics.View;
 import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.ContextSettings;
@@ -24,24 +30,14 @@ public class Game
 	HexGrid grid;
 	public Game()
 	{
+		window = new RenderWindow();
+		window.create(new VideoMode(1366, 768), "tvg15", WindowStyle.DEFAULT, new ContextSettings(8));
+		
 		manager = new EventManager(this);
 		manager.addHandler(Event.Type.CLOSED, new ClosedHandler());
-		manager.addHandler(Event.Type.MOUSE_BUTTON_PRESSED, new EventHandler(){
-			@Override
-			public void handle(Game game, Event event) {
-				MouseButtonEvent mbe = event.asMouseButtonEvent();
-				Vector2f gridOffset = grid.getAbsoluteOffset();
-				Vector2f gridRelative = Vector2f.sub(new Vector2f(mbe.position.x, mbe.position.y), gridOffset);
-				Tile tile = grid.tileForPixel(new Vector2i((int)gridRelative.x, (int)gridRelative.y));
-				if(tile != null){
-					tile.circleShape.setOutlineColor(Color.BLACK);
-				}
-			}
-		});
 		grid = new HexGrid(new Vector2f(160, 160));
-		renderer = new Renderer();
+		renderer = new Renderer(this);
 		StandardGameObject sgo = new StandardGameObject();
-		sgo.setPos(new Vector2f(0, 0));
 		renderer.root.getChildren().add(sgo);
 		sgo.getChildren().add(grid);
 		for(int i = 0; i < 16; i++){
@@ -50,15 +46,20 @@ public class Game
 			}
 		}
 		manager.addHandler(null, renderer);
-		window = new RenderWindow();
-		window.create(new VideoMode(1366, 768), "tvg15", WindowStyle.DEFAULT, new ContextSettings(8));
+		try{
+			Image img = new Image();
+			img.loadFromFile(FileSystems.getDefault().getPath("res", "icon.png"));
+			window.setIcon(img);
+		}catch(IOException e){
+			System.err.println("Could not load icon");
+		}
+
 		window.setFramerateLimit(60);
 		while(window.isOpen())
 		{
 			window.clear(Color.WHITE);
 		    manager.handle(window);
 			window.display();
-			
 		}
 	}
 

@@ -60,6 +60,7 @@ public class Game
 		}
 
 		window.setFramerateLimit(60);
+		window.setMouseCursorVisible(false);
 		while(window.isOpen())
 		{
 			window.clear(Color.WHITE);

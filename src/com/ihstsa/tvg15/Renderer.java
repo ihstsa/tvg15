@@ -7,6 +7,7 @@ import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.event.Event;
 import org.jsfml.window.event.MouseButtonEvent;
+import org.jsfml.window.event.MouseEvent;
 
 /**
  * An {@link EventHandler} that renders a {@link GameObject} when it is called.
@@ -26,7 +27,7 @@ public class Renderer implements EventHandler {
 	public View guiView;
 	
 	public Renderer(Game game){
-		this(game, new GUI(), new RootObject());
+		this(game, new GUI(game), new RootObject());
 	}
 	public Renderer(Game game, GUI gui, GameObject root){
 		this.game = game;
@@ -58,6 +59,18 @@ public class Renderer implements EventHandler {
 				if(tile != null){
 					tile.circleShape.setOutlineColor(Color.BLACK);
 				}
+			}
+		});
+		
+		game.manager.addHandler(Event.Type.MOUSE_MOVED, new EventHandler(){
+			@Override
+			public void handle(Game game, Event event) {
+				MouseEvent mbe = event.asMouseEvent();
+				Vector2f viewCoords = game.window.mapPixelToCoords(mbe.position, mainView);
+				Vector2f gridOffset = game.grid.getAbsoluteOffset();
+				Vector2f gridRelative = Vector2f.sub(viewCoords, gridOffset);
+				Tile tile = game.grid.tileForPixel(new Vector2i((int)gridRelative.x, (int)gridRelative.y));
+				gui.spin = tile != null;
 			}
 		});
 	}

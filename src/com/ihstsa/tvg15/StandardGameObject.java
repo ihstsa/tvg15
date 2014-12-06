@@ -10,33 +10,39 @@ import org.jsfml.system.Vector2f;
  * @author Paul
  *
  */
-public class StandardGameObject extends GameObject {
+public class StandardGameObject extends GameObject 
+{
 	
 	protected Vector2f pos;
 	protected List<GameObject> children;
 	
-	public StandardGameObject(){
+	public StandardGameObject()
+	{
 		this(null);
 	}
 	
-	public StandardGameObject(Object jsfmlObject){
+	public StandardGameObject(Object jsfmlObject)
+	{
 		super(jsfmlObject);
 		children = new ArrayList<GameObject>();
 		pos = Vector2f.ZERO;
 	}
 	
 	@Override
-	public Vector2f getPos() {
+	public Vector2f getPos() 
+	{
 		return pos;
 	}
 	
 	@Override
-	public void setPos(Vector2f pos) {
+	public void setPos(Vector2f pos) 
+	{
 		this.pos = pos;
 	}
 
 	@Override
-	List<GameObject> getChildren() {
+	List<GameObject> getChildren()
+	{
 		return children;
 	}
 

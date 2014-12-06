@@ -28,6 +28,7 @@ public class Game
 	EventManager manager;
 	Renderer renderer;
 	HexGrid grid;
+	
 	public Game()
 	{
 		window = new RenderWindow();
@@ -40,17 +41,21 @@ public class Game
 		StandardGameObject sgo = new StandardGameObject();
 		renderer.root.getChildren().add(sgo);
 		sgo.getChildren().add(grid);
-		for(int i = 0; i < 16; i++){
-			for(int j = 0; j < 8; j++){
+		for(int i = 0; i < 16; i++)
+		{
+			for(int j = 0; j < 8; j++)
+			{
 				grid.createTile(new AxialVector(i, j-(i/2)));
 			}
 		}
 		manager.addHandler(null, renderer);
-		try{
+		try
+		{
 			Image img = new Image();
 			img.loadFromFile(FileSystems.getDefault().getPath("res", "icon.png"));
 			window.setIcon(img);
-		}catch(IOException e){
+		}catch(IOException e)
+		{
 			System.err.println("Could not load icon");
 		}
 

@@ -32,7 +32,7 @@ public class Renderer implements EventHandler {
 		this.game = game;
 		this.gui = gui;
 		this.root = root;
-		
+		 
 		ConstView defaultView = game.window.getDefaultView();
 		mainView = new View(defaultView.getCenter(), defaultView.getSize());
 		guiView = new View(defaultView.getCenter(), defaultView.getSize());
@@ -55,7 +55,6 @@ public class Renderer implements EventHandler {
 				Vector2f gridOffset = game.grid.getAbsoluteOffset();
 				Vector2f gridRelative = Vector2f.sub(viewCoords, gridOffset);
 				Tile tile = game.grid.tileForPixel(new Vector2i((int)gridRelative.x, (int)gridRelative.y));
-				System.out.println(gridRelative.x + " " + gridRelative.y);
 				if(tile != null){
 					tile.circleShape.setOutlineColor(Color.BLACK);
 				}

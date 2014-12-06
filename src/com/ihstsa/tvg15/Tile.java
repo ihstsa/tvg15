@@ -41,20 +41,7 @@ public class Tile extends GameObject
 		circleShape.setOrigin(SIZE, SIZE);
 		this.setObject(circleShape);
 		pos = point;
-	}
-	
-	/**
-	 * Makes a Tile. This constructor should not be used outside of HexGrid.
-	 * Use {@link HexGrid#createTile} to create new tiles.
-	 * @param grid The grid the tile will be on.
-	 * @param q The q position of the Tile.
-	 * @param r The r position of the Tile.
-	 */
-	public Tile(HexGrid grid, int q, int r)
-	{
-		this(grid, new AxialVector(q, r));
-	}
-	
+	}	
 	
 	/**
 	 * Gets the pixel position of the Tile's center, as a Vector2f.

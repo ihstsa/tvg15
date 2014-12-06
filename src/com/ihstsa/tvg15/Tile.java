@@ -1,5 +1,6 @@
 package com.ihstsa.tvg15;
 
+import java.util.Comparator;
 import java.util.List;
 
 import org.jsfml.graphics.CircleShape;
@@ -13,6 +14,15 @@ public class Tile extends GameObject
 	public AxialVector pos;
 	private HexGrid grid;
 	CircleShape circleShape;
+	public static Comparator<Tile> qComparator = new Comparator<Tile>(){
+		@Override
+		public int compare(Tile o1, Tile o2) {
+			if(o2.pos.q > o1.pos.q) return -1;
+			else if(o2.pos.q < o1.pos.q) return 1;
+			
+			return 0;
+		}
+	};
 	
 	/**
 	 * Makes a Tile. This constructor should not be used outside of HexGrid.

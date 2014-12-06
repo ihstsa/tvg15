@@ -1,9 +1,13 @@
 package com.ihstsa.tvg15;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Set;
 
 import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
@@ -30,16 +34,38 @@ public class HexGrid extends GameObject
 	private Map<Integer, HashMap<Integer, Tile>> grid;
 	public List<Tile> tiles;
 	private Vector2f pos;
+	private Game game;
 	
 	/**
 	 * Constructs a HexGrid
 	 * @argument pos The position of the HexGrid
 	 */
-	public HexGrid(Vector2f pos)
+	public HexGrid(Game game, Vector2f pos)
 	{
+		this.game = game;
 		grid = new HashMap<Integer, HashMap<Integer, Tile>>();
 		tiles = new ArrayList<Tile>();
 		this.pos = pos;
+	}
+	
+	public void updateSunlight()
+	{
+		for(int q : grid.keySet())
+		{
+			Collection<Tile> tiles = grid.get(q).values();
+			List<TranslucentTile> translucentTiles = new ArrayList<>();
+			for(Tile t : tiles){
+				if(t instanceof TranslucentTile){
+					translucentTiles.add((TranslucentTile)t);
+				}
+			}
+			Collections.sort(translucentTiles, Tile.qComparator);
+			double sunlight = 1;
+			for(TranslucentTile t : translucentTiles){
+				t.sunAmount = sunlight;
+				sunlight *= (1 - t.getOpacity());
+			}
+		}
 	}
 	
 	/**

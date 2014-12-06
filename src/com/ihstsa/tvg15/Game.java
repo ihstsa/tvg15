@@ -36,7 +36,7 @@ public class Game
 		
 		manager = new EventManager(this);
 		manager.addHandler(Event.Type.CLOSED, new ClosedHandler());
-		grid = new HexGrid(new Vector2f(160, 160));
+		grid = new HexGrid(this, new Vector2f(160, 160));
 		renderer = new Renderer(this);
 		StandardGameObject sgo = new StandardGameObject();
 		renderer.root.getChildren().add(sgo);

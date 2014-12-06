@@ -65,7 +65,6 @@ public class EventManager
 			this.handleEvent(e);
 		}
 		this.handleEvent(null);
-		
 	}
 	
 	/**

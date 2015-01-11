@@ -24,7 +24,15 @@ public class NutrientManager
 	public void addWater()
 	{
 		currentWater += tree.getWaterBuffer();
+		if(currentWater > maxWater)
+		{
+			currentWater = maxWater;
+		}
 	}
+	
+	/**
+	 * Produces the highest possible amount of glucose and adds it to the glucose holder.
+	 */
 	public void addGlucose()
 	{
 		double sunlight = tree.getSunlightProduction();
@@ -43,6 +51,11 @@ public class NutrientManager
 		{
 			currentGlucose += currentWater;
 			currentWater = 0;
+		}
+		if(currentGlucose > maxGlucose)
+		{
+			currentWater += currentGlucose - maxGlucose;
+			currentGlucose = maxGlucose;
 		}
 	}
 }

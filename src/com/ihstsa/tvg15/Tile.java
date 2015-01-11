@@ -54,7 +54,6 @@ public class Tile extends GameObject
 		this(grid, new AxialVector(q, r));
 	}
 	
-	
 	/**
 	 * Gets the pixel position of the Tile's center, as a Vector2f.
 	 * @return the center pixel position

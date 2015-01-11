@@ -54,14 +54,17 @@ public class HexGrid extends GameObject
 		{
 			Collection<Tile> tiles = grid.get(q).values();
 			List<TranslucentTile> translucentTiles = new ArrayList<>();
-			for(Tile t : tiles){
-				if(t instanceof TranslucentTile){
+			for(Tile t : tiles)
+			{
+				if(t instanceof TranslucentTile)
+				{
 					translucentTiles.add((TranslucentTile)t);
 				}
 			}
 			Collections.sort(translucentTiles, Tile.rComparator);
 			double sunlight = 1;
-			for(TranslucentTile t : translucentTiles){
+			for(TranslucentTile t : translucentTiles)
+			{
 				t.sunAmount = sunlight;
 				sunlight *= (1 - t.getOpacity());
 			}

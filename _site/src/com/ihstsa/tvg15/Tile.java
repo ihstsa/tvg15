@@ -42,6 +42,7 @@ public class Tile extends GameObject
 		this.setObject(circleShape);
 		pos = point;
 	}
+	
 	/**
 	 * Makes a Tile. This constructor should not be used outside of HexGrid.
 	 * Use {@link HexGrid#createTile} to create new tiles.

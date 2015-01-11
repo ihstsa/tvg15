@@ -59,8 +59,7 @@ public class Game
 			System.err.println("Could not load icon");
 		}
 
-		//window.setFramerateLimit(60);
-		window.setVerticalSyncEnabled(true);
+		window.setFramerateLimit(60);
 		window.setMouseCursorVisible(false);
 		while(window.isOpen())
 		{

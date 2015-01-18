@@ -9,12 +9,11 @@ public class LeafTile extends TreeTile
 	{
 		super(grid, point, parent);
 		numberOfLeaves = 1;
-		tree = parent.getTree();
 	}
 	
-	public double calculateMaxGlucose()
+	public double calculateSunlightProduction()
 	{
-		return sunAmount * sunlightPerLeaf;
+		return sunAmount * sunlightPerLeaf * numberOfLeaves;
 	}
 	
 	public void addLeaf()

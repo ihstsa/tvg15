@@ -1,20 +1,24 @@
 package com.ihstsa.tvg15;
 
-public class LeafTile extends TranslucentTile
+public class LeafTile extends TreeTile
 {
-	public static final double PRODUCTION_RATE_PER_LEAF = .01;
-	public double sunlight = 0;
+	public double sunlightPerLeaf = .01;
 	public int numberOfLeaves;
 	
-	public LeafTile(HexGrid grid, AxialVector point)
+	public LeafTile(HexGrid grid, AxialVector point, TreeTile parent)
 	{
-		super(grid, point);
-		numberOfLeaves = 0;
+		super(grid, point, parent);
+		numberOfLeaves = 1;
+		tree = parent.getTree();
 	}
 	
 	public double calculateMaxGlucose()
 	{
-		
-		return sunAmount * PRODUCTION_RATE_PER_LEAF;
+		return sunAmount * sunlightPerLeaf;
+	}
+	
+	public void addLeaf()
+	{
+		numberOfLeaves ++;
 	}
 }

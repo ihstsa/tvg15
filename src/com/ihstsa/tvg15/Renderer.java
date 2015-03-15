@@ -2,7 +2,6 @@ package com.ihstsa.tvg15;
 
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.ConstView;
-import org.jsfml.graphics.Transform;
 import org.jsfml.graphics.View;
 import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
@@ -78,8 +77,6 @@ public class Renderer implements EventHandler {
 				mainView.zoom((float) zf);
 				Vector2f mp2 = game.window.mapPixelToCoords(mousePosition, mainView);
 				mainView.move(Vector2f.sub(mp1, mp2));
-				System.out.println(mp1);
-				System.out.println(mp2);
 				
 			}
 		});

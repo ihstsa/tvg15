@@ -2,19 +2,15 @@ package com.ihstsa.tvg15;
 
 import java.io.IOException;
 import java.nio.file.FileSystems;
-import java.nio.file.Path;
 
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.Image;
 import org.jsfml.graphics.RenderWindow;
-import org.jsfml.graphics.View;
 import org.jsfml.system.Vector2f;
-import org.jsfml.system.Vector2i;
 import org.jsfml.window.ContextSettings;
 import org.jsfml.window.VideoMode;
 import org.jsfml.window.WindowStyle;
 import org.jsfml.window.event.Event;
-import org.jsfml.window.event.MouseButtonEvent;
 
 /**
  * The "Main class" of this game. Currently mostly for testing.
@@ -48,6 +44,8 @@ public class Game
 				grid.createTile(new AxialVector(i, j-(i/2)));
 			}
 		}
+		Tree tree = new Tree();
+		TreeTile t = new BaseTile(grid, new AxialVector(0, 0), tree);
 		manager.addHandler(null, renderer);
 		try
 		{

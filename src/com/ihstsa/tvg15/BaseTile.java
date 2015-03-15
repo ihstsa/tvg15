@@ -6,6 +6,8 @@ public class BaseTile extends TreeTile
 	{
 		super(grid, vector, null);
 		tree = parentTree;
+		tree.addTile(this);
+		parentDirection = HexDirection.BOT;
 	}
 	
 }

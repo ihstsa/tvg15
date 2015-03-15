@@ -1,5 +1,6 @@
 package com.ihstsa.tvg15;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class Tree 
@@ -11,6 +12,11 @@ public class Tree
 	private double glucoseCapacity;
 	private double waterBuffer;
 	private double sunlightProduction;
+	
+	public Tree(){
+		tiles = new HashSet<>();
+		
+	}
 	
 	public void addTile(TreeTile newTile)
 	{

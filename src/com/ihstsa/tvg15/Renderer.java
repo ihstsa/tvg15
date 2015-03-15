@@ -2,12 +2,15 @@ package com.ihstsa.tvg15;
 
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.ConstView;
+import org.jsfml.graphics.Transform;
 import org.jsfml.graphics.View;
 import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.event.Event;
 import org.jsfml.window.event.MouseButtonEvent;
 import org.jsfml.window.event.MouseEvent;
+import org.jsfml.window.event.MouseWheelEvent;
+import org.jsfml.window.Mouse;
 
 /**
  * An {@link EventHandler} that renders a {@link GameObject} when it is called.
@@ -25,6 +28,8 @@ public class Renderer implements EventHandler {
 	public Game game;
 	public View mainView;
 	public View guiView;
+	public Vector2i mousePosition = new Vector2i(500, 500);
+	double zoom = 1;
 	
 	public Renderer(Game game){
 		this(game, new GUI(game), new RootObject());
@@ -52,13 +57,30 @@ public class Renderer implements EventHandler {
 			@Override
 			public void handle(Game game, Event event) {
 				MouseButtonEvent mbe = event.asMouseButtonEvent();
-				Vector2f viewCoords = game.window.mapPixelToCoords(mbe.position, mainView);
-				Vector2f gridOffset = game.grid.getAbsoluteOffset();
-				Vector2f gridRelative = Vector2f.sub(viewCoords, gridOffset);
-				Tile tile = game.grid.tileForPixel(new Vector2i((int)gridRelative.x, (int)gridRelative.y));
-				if(tile != null){
-					tile.circleShape.setOutlineColor(Color.BLACK);
+				if(mbe.button == Mouse.Button.LEFT){
+					Vector2f viewCoords = game.window.mapPixelToCoords(mbe.position, mainView);
+					Vector2f gridOffset = game.grid.getAbsoluteOffset();
+					Vector2f gridRelative = Vector2f.sub(viewCoords, gridOffset);
+					Tile tile = game.grid.tileForPixel(new Vector2i((int)gridRelative.x, (int)gridRelative.y));
+					if(tile != null){
+						tile.circleShape.setOutlineColor(Color.BLACK);
+					}
 				}
+			}
+		});
+		game.manager.addHandler(Event.Type.MOUSE_WHEEL_MOVED, new EventHandler(){
+			@Override
+			public void handle(Game game, Event event) {
+				MouseWheelEvent mwe = event.asMouseWheelEvent();
+				double zf = Math.pow(1.2, -mwe.delta);
+				zoom *= zf;
+				Vector2f mp1 = game.window.mapPixelToCoords(mousePosition, mainView);
+				mainView.zoom((float) zf);
+				Vector2f mp2 = game.window.mapPixelToCoords(mousePosition, mainView);
+				mainView.move(Vector2f.sub(mp1, mp2));
+				System.out.println(mp1);
+				System.out.println(mp2);
+				
 			}
 		});
 		
@@ -66,12 +88,34 @@ public class Renderer implements EventHandler {
 			@Override
 			public void handle(Game game, Event event) {
 				MouseEvent mbe = event.asMouseEvent();
+				mousePosition = mbe.position;
 				Vector2f viewCoords = game.window.mapPixelToCoords(mbe.position, mainView);
 				Vector2f gridOffset = game.grid.getAbsoluteOffset();
 				Vector2f gridRelative = Vector2f.sub(viewCoords, gridOffset);
 				Tile tile = game.grid.tileForPixel(new Vector2i((int)gridRelative.x, (int)gridRelative.y));
 				gui.spin = tile != null;
+				
 			}
+		});
+		
+		game.manager.addHandler(null, new EventHandler(){
+			@Override
+			public void handle(Game game, Event event) {
+				Vector2i size = game.window.getSize();
+				if(mousePosition.x < size.x * 0.1){
+					mainView.move((mousePosition.x - (int)(size.x * 0.1))/4, 0);
+				}
+				if(mousePosition.x > size.x * 0.9){
+					mainView.move((mousePosition.x - (int)(size.x * 0.9))/4, 0);
+				}
+				if(mousePosition.y < size.y * 0.1){
+					mainView.move(0, (mousePosition.y - (int)(size.y * 0.1))/4);
+				}
+				if(mousePosition.y > size.y * 0.9){
+					mainView.move(0, (mousePosition.y - (int)(size.y * 0.9))/4);
+				}
+			}
+			
 		});
 	}
 

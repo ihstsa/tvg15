@@ -1,5 +1,7 @@
 package com.ihstsa.tvg15;
 
+import org.jsfml.system.Vector2f;
+import org.jsfml.system.Vector2i;
 import org.jsfml.system.Vector3f;
 import org.jsfml.system.Vector3i;
 
@@ -37,5 +39,8 @@ public final class Utilities {
 			rz = -rx-ry;
 		}
 		return new Vector3i(rx, ry, rz);
+	}
+	public static Vector2f vectorToFloat(Vector2i in){
+		return new Vector2f(in.x, in.y);
 	}
 }

@@ -13,4 +13,7 @@ public enum HexDirection
 	BOT,
 	BOT_LEFT,
 	TOP_LEFT;
+	public int getAngle(){
+		return this.ordinal() * 60;
+	} 
 }

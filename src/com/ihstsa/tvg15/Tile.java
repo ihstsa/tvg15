@@ -61,6 +61,7 @@ public class Tile extends GameObject
 	public Vector2f getPos(){
 		return new Vector2f((float) (SIZE * 3./2. * pos.q), (float) (SIZE * Math.sqrt(3) * (pos.r+(pos.q/2.))));
 	}
+	
 	@Override
 	public void setPos(Vector2f pos) {
 		throw new UnsupportedOperationException("Tile cannot be moved by pixels");
@@ -88,6 +89,18 @@ public class Tile extends GameObject
 	 */
 	public Tile getRelative(HexDirection direction, int n){
 		return grid.getRelativeTile(this, direction, n);
+	}
+	
+	public HexDirection getDirectionTo(Tile tile){
+		int dq = tile.pos.q - this.pos.q;
+		int dr = tile.pos.r - this.pos.r;
+		if(dq == 0 && dr < 0) return HexDirection.TOP;
+		if(dq > 0 && dr < 0) return HexDirection.TOP_RIGHT;
+		if(dq > 0 && dr == 0) return HexDirection.BOT_RIGHT;
+		if(dq == 0 && dr > 0) return HexDirection.BOT;
+		if(dq < 0 && dr > 0) return HexDirection.BOT_LEFT;
+		if(dq < 0 && dr == 0) return HexDirection.TOP_LEFT;
+		return null;
 	}
 
 }

@@ -37,15 +37,15 @@ public class Game
 		StandardGameObject sgo = new StandardGameObject();
 		renderer.root.getChildren().add(sgo);
 		sgo.getChildren().add(grid);
-		for(int i = 0; i < 16; i++)
+		for(int i = 1; i < 16; i++)
 		{
 			for(int j = 0; j < 8; j++)
 			{
 				grid.createTile(new AxialVector(i, j-(i/2)));
 			}
 		}
-		Tree tree = new Tree();
-		TreeTile t = new BaseTile(grid, new AxialVector(0, 0), tree);
+		Tree tree = new Tree(grid);
+		TreeTile t = new BaseTile(grid, new AxialVector(7, 0), tree);
 		manager.addHandler(null, renderer);
 		try
 		{

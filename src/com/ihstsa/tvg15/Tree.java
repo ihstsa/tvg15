@@ -12,15 +12,17 @@ public class Tree
 	private double glucoseCapacity;
 	private double waterBuffer;
 	private double sunlightProduction;
-	
-	public Tree(){
+	HexGrid grid;
+	public Tree(HexGrid grid){
 		tiles = new HashSet<>();
-		
+		this.grid = grid;
 	}
 	
 	public void addTile(TreeTile newTile)
 	{
 		tiles.add(newTile);
+		grid.putTile(newTile);
+		
 	}
 	
 	public void setValues()
@@ -42,6 +44,10 @@ public class Tree
 		waterCapacity = waterCapacitySum;
 		glucoseCapacity = glucoseCapacitySum;
 		sunlightProduction = sunlightProductionSum;
+	}
+	
+	public void removeTile(TreeTile tile){
+		tiles.remove(tile);
 	}
 	
 	public double getGlucoseProduction()

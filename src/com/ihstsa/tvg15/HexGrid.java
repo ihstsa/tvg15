@@ -95,6 +95,10 @@ public class HexGrid extends GameObject
 			m = new HashMap<Integer, Tile>();
 			grid.put(tile.pos.q, m);
 		}
+		Tile t = m.get(tile.pos.r);
+		if(t != null){
+			t.destroy();
+		}
 		m.put(tile.pos.r, tile);
 		tiles.add(tile);
 	}

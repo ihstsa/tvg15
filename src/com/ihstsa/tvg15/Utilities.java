@@ -43,4 +43,14 @@ public final class Utilities {
 	public static Vector2f vectorToFloat(Vector2i in){
 		return new Vector2f(in.x, in.y);
 	}
+	public static Vector2f rotate(Vector2f point, Vector2f center, double angle){
+		double dx, dy;
+		dx = point.x - center.x;
+		dy = point.y - center.y;
+		double initial = Math.atan2(dx, dy);
+		double radius = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
+		double new_ = initial - angle;
+		Vector2f newp = new Vector2f((float)(Math.sin(new_) * radius), (float)(Math.cos(new_) * radius));
+		return newp;
+	}
 }

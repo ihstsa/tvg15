@@ -102,5 +102,9 @@ public class Tile extends GameObject
 		if(dq < 0 && dr == 0) return HexDirection.TOP_LEFT;
 		return null;
 	}
+	
+	public void destroy(){
+
+	}
 
 }

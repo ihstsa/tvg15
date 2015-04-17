@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.jsfml.graphics.CircleShape;
 import org.jsfml.graphics.Color;
+import org.jsfml.graphics.ConvexShape;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.system.Vector2f;
 
@@ -22,6 +23,7 @@ public class TreeTile extends TranslucentTile
 	public HexDirection parentDirection;
 	public int width;
 	protected Tree tree;
+	ConvexShape poly;
 	
 	public TreeTile(HexGrid grid, AxialVector point, TreeTile parent) 
 	{
@@ -29,6 +31,8 @@ public class TreeTile extends TranslucentTile
 		parentTreeTile = parent;
 		childTiles = new HashMap<>();
 		width = SIZE;
+		poly = new ConvexShape();
+		poly.setFillColor(Color.RED);
 		if(parent != null){
 			tree = parentTreeTile.getTree();
 			tree.addTile(this);
@@ -45,17 +49,20 @@ public class TreeTile extends TranslucentTile
 	public void draw(RenderWindow window, Vector2f pos){
 		circleShape.setPosition(pos);
 		window.draw(circleShape);//, states);
-		Pair<Vector2f, Vector2f> v = getEntranceCoords();
-		CircleShape a = new CircleShape(6);
-		a.setPosition(Vector2f.add(v.a, pos));
-		a.setFillColor(Color.BLACK);
-		a.setOrigin(6, 6);
-		window.draw(a);
-		CircleShape b = new CircleShape(6);
-		b.setPosition(Vector2f.add(v.b, pos));
-		b.setFillColor(Color.BLACK);
-		b.setOrigin(6, 6);
-		window.draw(b);
+		poly.setPointCount(12);
+		int i = 0;
+		for(HexDirection d : HexDirection.values()){
+			Tile t = getRelative(d);
+			if(t instanceof TreeTile){
+				TreeTile t2 = (TreeTile)t;
+				Pair<Vector2f, Vector2f> x = t2.getEntranceCoords();
+				poly.setPoint(i, x.a);
+				poly.setPoint(i+1, x.b);
+				i+=2;
+			}
+		}
+		poly.setPointCount(i);
+		window.draw(poly);
 		//System.out.println(v.b);
 	}
 	

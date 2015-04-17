@@ -97,10 +97,17 @@ public class HexGrid extends GameObject
 		}
 		Tile t = m.get(tile.pos.r);
 		if(t != null){
-			t.destroy();
+			removeTile(t);
 		}
 		m.put(tile.pos.r, tile);
 		tiles.add(tile);
+	}
+	
+	public void removeTile(Tile tile){
+		tile.destroy();
+		HashMap<Integer, Tile> m = grid.get(tile.pos.q);
+		if(m == null) return;
+		m.remove(tile.pos.r);
 	}
 	
 	/**

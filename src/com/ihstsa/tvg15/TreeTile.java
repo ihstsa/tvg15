@@ -1,10 +1,13 @@
 package com.ihstsa.tvg15;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.jsfml.graphics.CircleShape;
 import org.jsfml.graphics.Color;
+import org.jsfml.graphics.ConvexShape;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.system.Vector2f;
 
@@ -18,20 +21,21 @@ public class TreeTile extends TranslucentTile
 	public double sunlightProduction = 0;
 	public double waterBuffer = 0;
 	
-	public Map<HexDirection, Tile> childTiles;
 	public HexDirection parentDirection;
 	public int width;
 	protected Tree tree;
+	ConvexShape poly;
 	
 	public TreeTile(HexGrid grid, AxialVector point, TreeTile parent) 
 	{
 		super(grid, point);
 		parentTreeTile = parent;
-		childTiles = new HashMap<>();
+		childTreeTiles = new HashMap<>();
 		width = SIZE;
+		poly = new ConvexShape();
+		poly.setFillColor(Color.RED);
 		if(parent != null){
-			tree = parentTreeTile.getTree();
-			tree.addTile(this);
+			parentTreeTile.addChild(this);
 			parentDirection = getDirectionTo(parentTreeTile);
 		}
 	}
@@ -41,21 +45,37 @@ public class TreeTile extends TranslucentTile
 		return tree;
 	}
 	
+	public void addChild(TreeTile t){
+		childTreeTiles.put(getDirectionTo(t), t);
+		tree.addTile(t);
+	}
+	
 	@Override
 	public void draw(RenderWindow window, Vector2f pos){
 		circleShape.setPosition(pos);
 		window.draw(circleShape);//, states);
-		Pair<Vector2f, Vector2f> v = getEntranceCoords();
-		CircleShape a = new CircleShape(6);
-		a.setPosition(Vector2f.add(v.a, pos));
-		a.setFillColor(Color.BLACK);
-		a.setOrigin(6, 6);
-		window.draw(a);
-		CircleShape b = new CircleShape(6);
-		b.setPosition(Vector2f.add(v.b, pos));
-		b.setFillColor(Color.BLACK);
-		b.setOrigin(6, 6);
-		window.draw(b);
+		/*List<Vector2f> l = new ArrayList<Vector2f>();
+		Pair<Vector2f, Vector2f> z = getEntranceCoords();
+		l.add(z.a);
+		l.add(z.b);
+		for(HexDirection d : HexDirection.values()){
+			Tile t = getRelative(d);
+			if(t instanceof TreeTile){
+				TreeTile t2 = (TreeTile)t;
+				Pair<Vector2f, Vector2f> x = t2.getEntranceCoords();
+				System.out.println(x.a);
+				System.out.println(x.b);
+				l.add(x.a);
+				l.add(x.b);
+			}
+		}
+		poly.setPointCount(l.size());
+		for(int j = 0; j < l.size(); j++){
+			poly.setPoint(j, l.get(j));
+		}
+		System.out.println(poly.getPoints());
+		poly.setPosition(pos);
+		window.draw(poly);*/
 		//System.out.println(v.b);
 	}
 	

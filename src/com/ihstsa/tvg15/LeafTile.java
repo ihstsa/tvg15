@@ -18,6 +18,6 @@ public class LeafTile extends TreeTile
 	
 	public void addLeaf()
 	{
-		numberOfLeaves ++;
+		numberOfLeaves++;
 	}
 }

@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.jsfml.graphics.CircleShape;
 import org.jsfml.graphics.Color;
+import org.jsfml.graphics.RenderWindow;
+import org.jsfml.graphics.Text;
 import org.jsfml.system.Vector2f;
 
 public class Tile extends GameObject
@@ -14,6 +16,7 @@ public class Tile extends GameObject
 	public AxialVector pos;
 	private HexGrid grid;
 	CircleShape circleShape;
+	//Text text;
 	public static Comparator<Tile> rComparator = new Comparator<Tile>(){
 		@Override
 		public int compare(Tile o1, Tile o2) {
@@ -37,11 +40,20 @@ public class Tile extends GameObject
 		circleShape.setOutlineColor(outlineColor);
 		circleShape.setOutlineThickness(3);
 		circleShape.rotate(30);
+		/*text = new Text("" + point.q + " " + point.r, Game.arial, 24);
+		text.setOrigin(0.5f, 0.5f);
+		text.setColor(Color.BLACK);*/
 		//circleShape.setOutlineColor()
 		circleShape.setOrigin(SIZE, SIZE);
 		this.setObject(circleShape);
 		pos = point;
 	}
+	/*protected void draw(RenderWindow window, Vector2f offset){
+		text.setPosition(offset);
+		circleShape.setPosition(offset);
+		window.draw(text);
+		window.draw(circleShape);
+	}*/
 	/**
 	 * Makes a Tile. This constructor should not be used outside of HexGrid.
 	 * Use {@link HexGrid#createTile} to create new tiles.

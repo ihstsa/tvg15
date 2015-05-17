@@ -46,6 +46,7 @@ public class Game
 		}
 		Tree tree = new Tree(grid);
 		TreeTile t = new BaseTile(grid, new AxialVector(0, 0), tree);
+		TreeTile t2 = new TreeTile(grid, new AxialVector(1, 0), t);
 		manager.addHandler(null, renderer);
 		try
 		{

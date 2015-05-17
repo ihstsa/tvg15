@@ -1,6 +1,8 @@
 package com.ihstsa.tvg15;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.jsfml.graphics.CircleShape;
@@ -19,7 +21,6 @@ public class TreeTile extends TranslucentTile
 	public double sunlightProduction = 0;
 	public double waterBuffer = 0;
 	
-	public Map<HexDirection, Tile> childTiles;
 	public HexDirection parentDirection;
 	public int width;
 	protected Tree tree;
@@ -29,13 +30,12 @@ public class TreeTile extends TranslucentTile
 	{
 		super(grid, point);
 		parentTreeTile = parent;
-		childTiles = new HashMap<>();
+		childTreeTiles = new HashMap<>();
 		width = SIZE;
 		poly = new ConvexShape();
 		poly.setFillColor(Color.RED);
 		if(parent != null){
-			tree = parentTreeTile.getTree();
-			tree.addTile(this);
+			parentTreeTile.addChild(this);
 			parentDirection = getDirectionTo(parentTreeTile);
 		}
 	}
@@ -45,24 +45,37 @@ public class TreeTile extends TranslucentTile
 		return tree;
 	}
 	
+	public void addChild(TreeTile t){
+		childTreeTiles.put(getDirectionTo(t), t);
+		tree.addTile(t);
+	}
+	
 	@Override
 	public void draw(RenderWindow window, Vector2f pos){
 		circleShape.setPosition(pos);
 		window.draw(circleShape);//, states);
-		poly.setPointCount(12);
-		int i = 0;
+		/*List<Vector2f> l = new ArrayList<Vector2f>();
+		Pair<Vector2f, Vector2f> z = getEntranceCoords();
+		l.add(z.a);
+		l.add(z.b);
 		for(HexDirection d : HexDirection.values()){
 			Tile t = getRelative(d);
 			if(t instanceof TreeTile){
 				TreeTile t2 = (TreeTile)t;
 				Pair<Vector2f, Vector2f> x = t2.getEntranceCoords();
-				poly.setPoint(i, x.a);
-				poly.setPoint(i+1, x.b);
-				i+=2;
+				System.out.println(x.a);
+				System.out.println(x.b);
+				l.add(x.a);
+				l.add(x.b);
 			}
 		}
-		poly.setPointCount(i);
-		window.draw(poly);
+		poly.setPointCount(l.size());
+		for(int j = 0; j < l.size(); j++){
+			poly.setPoint(j, l.get(j));
+		}
+		System.out.println(poly.getPoints());
+		poly.setPosition(pos);
+		window.draw(poly);*/
 		//System.out.println(v.b);
 	}
 	

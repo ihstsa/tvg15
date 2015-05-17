@@ -28,6 +28,7 @@ public class Renderer implements EventHandler {
 	public View mainView;
 	public View guiView;
 	public Vector2i mousePosition = new Vector2i(500, 500);
+	Tile currentTile;
 	double zoom = 1;
 	
 	public Renderer(Game game){
@@ -91,7 +92,16 @@ public class Renderer implements EventHandler {
 				Vector2f gridRelative = Vector2f.sub(viewCoords, gridOffset);
 				Tile tile = game.grid.tileForPixel(new Vector2i((int)gridRelative.x, (int)gridRelative.y));
 				gui.spin = tile != null;
-				
+				if(tile != currentTile){
+					if(currentTile != null) currentTile.circleShape.setOutlineColor(new Color(0x10, 0x10, 0xaf, 0x22));
+					currentTile = tile;
+					if(currentTile != null) currentTile.circleShape.setOutlineColor(new Color(0x10, 0x10, 0xaf, 0x88));
+					
+				}
+				/*if(tile == null && currentTile != null){
+					currentTile.circleShape.setOutlineColor(new Color(0x10, 0x10, 0xaf, 0x22));
+					currentTile = null;
+				}*/
 			}
 		});
 		

@@ -64,8 +64,10 @@ public class TreeTile extends TranslucentTile
 		Vector2f a = new Vector2f(-width/2, -y);
 		Vector2f b = new Vector2f(width/2, -y);
 		double rads = (parentDirection.getAngle())/180.0*Math.PI;
-		Vector2f an = Utilities.rotate(a, getPos(), rads);
-		Vector2f bn = Utilities.rotate(b, getPos(), rads);
+		Vector2f an = Utilities.rotate(a, Vector2f.ZERO, rads);
+		Vector2f bn = Utilities.rotate(b, Vector2f.ZERO, rads);
+		//System.out.println(an);
+		System.out.println(a);
 		/*double s = Math.sin(rads);
 		double c = Math.cos(rads);
 		double axn = a.x * c - a.y * s;

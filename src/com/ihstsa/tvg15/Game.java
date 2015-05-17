@@ -1,9 +1,12 @@
 package com.ihstsa.tvg15;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystems;
+import java.nio.file.Path;
 
 import org.jsfml.graphics.Color;
+import org.jsfml.graphics.Font;
 import org.jsfml.graphics.Image;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.system.Vector2f;
@@ -24,9 +27,20 @@ public class Game
 	EventManager manager;
 	Renderer renderer;
 	HexGrid grid;
+	static Font arial;
+	static {
+		arial = new Font();
+		try {
+			arial.loadFromFile(FileSystems.getDefault().getPath("C:\\Users\\paul", "arial.ttf"));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
 	
 	public Game()
 	{
+		
 		window = new RenderWindow();
 		window.create(new VideoMode(1366, 768), "tvg15", WindowStyle.DEFAULT, new ContextSettings(8));
 		
@@ -37,15 +51,20 @@ public class Game
 		StandardGameObject sgo = new StandardGameObject();
 		renderer.root.getChildren().add(sgo);
 		sgo.getChildren().add(grid);
-		for(int i = 1; i < 16; i++)
+		for(int i = 0; i < 16; i++)
 		{
 			for(int j = 0; j < 8; j++)
 			{
-				grid.createTile(new AxialVector(i, j-(i/2)));
+				grid.createTile(new AxialVector(i, j));
 			}
 		}
 		Tree tree = new Tree(grid);
-		TreeTile t = new BaseTile(grid, new AxialVector(7, 0), tree);
+		TreeTile t = new BaseTile(grid, new AxialVector(0, 4), tree);
+		TreeTile t2 = new TreeTile(grid, new AxialVector(1, 3), t);
+		TreeTile t3 = new TreeTile(grid, new AxialVector(2, 2), t2);
+		TreeTile t4 = new TreeTile(grid, new AxialVector(3, 1), t3);
+		TreeTile t5 = new TreeTile(grid, new AxialVector(4, 0), t4);
+		TreeTile t6 = new TreeTile(grid, new AxialVector(5, 0), t5);
 		manager.addHandler(null, renderer);
 		try
 		{

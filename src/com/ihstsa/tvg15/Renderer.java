@@ -23,7 +23,7 @@ public class Renderer implements EventHandler {
 	 * The root {@link GameObject} to render
 	 */
 	public GameObject root;
-	public GUI gui;
+	public Cursor gui;
 	public Game game;
 	public View mainView;
 	public View guiView;
@@ -32,9 +32,9 @@ public class Renderer implements EventHandler {
 	double zoom = 1;
 	
 	public Renderer(Game game){
-		this(game, new GUI(game), new RootObject());
+		this(game, new Cursor(game), new RootObject());
 	}
-	public Renderer(Game game, GUI gui, GameObject root){
+	public Renderer(Game game, Cursor gui, GameObject root){
 		this.game = game;
 		this.gui = gui;
 		this.root = root;

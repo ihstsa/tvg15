@@ -51,20 +51,22 @@ public class Game
 		StandardGameObject sgo = new StandardGameObject();
 		renderer.root.getChildren().add(sgo);
 		sgo.getChildren().add(grid);
-		for(int i = 0; i < 16; i++)
+		/*for(int i = 0; i < 16; i++)
 		{
 			for(int j = 0; j < 8; j++)
 			{
 				grid.createTile(new AxialVector(i, j));
 			}
-		}
+		}*/
 		Tree tree = new Tree(grid);
 		TreeTile t = new BaseTile(grid, new AxialVector(0, 4), tree);
-		TreeTile t2 = new TreeTile(grid, new AxialVector(1, 3), t);
-		TreeTile t3 = new TreeTile(grid, new AxialVector(2, 2), t2);
-		TreeTile t4 = new TreeTile(grid, new AxialVector(3, 1), t3);
-		TreeTile t5 = new TreeTile(grid, new AxialVector(4, 0), t4);
-		TreeTile t6 = new TreeTile(grid, new AxialVector(5, 0), t5);
+		TreeTile t2 = new TreeTile(grid, new AxialVector(0, 3), t);
+		TreeTile t3 = new TreeTile(grid, new AxialVector(0, 2), t2);
+		TreeTile t4 = new TreeTile(grid, new AxialVector(0, 1), t3);
+		TreeTile t7 = new TreeTile(grid, new AxialVector(1, 1), t3);
+		TreeTile t8 = new TreeTile(grid, new AxialVector(2, 0), t7);
+		TreeTile t5 = new TreeTile(grid, new AxialVector(0, 0), t4);
+		TreeTile t6 = new TreeTile(grid, new AxialVector(0, -1), t5);
 		manager.addHandler(null, renderer);
 		try
 		{

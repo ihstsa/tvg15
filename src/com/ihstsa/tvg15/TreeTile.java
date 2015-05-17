@@ -31,10 +31,11 @@ public class TreeTile extends TranslucentTile
 		super(grid, point);
 		parentTreeTile = parent;
 		childTreeTiles = new HashMap<>();
-		width = SIZE;
 		poly = new ConvexShape();
 		poly.setFillColor(Color.RED);
 		if(parent != null){
+			width = parent.width - 20;
+			tree = parent.tree;
 			parentTreeTile.addChild(this);
 			parentDirection = getDirectionTo(parentTreeTile);
 		}
@@ -54,36 +55,41 @@ public class TreeTile extends TranslucentTile
 	public void draw(RenderWindow window, Vector2f pos){
 		circleShape.setPosition(pos);
 		window.draw(circleShape);//, states);
-		/*List<Vector2f> l = new ArrayList<Vector2f>();
+		List<Vector2f> l = new ArrayList<Vector2f>();
 		Pair<Vector2f, Vector2f> z = getEntranceCoords();
 		l.add(z.a);
 		l.add(z.b);
 		for(HexDirection d : HexDirection.values()){
-			Tile t = getRelative(d);
-			if(t instanceof TreeTile){
+			Tile t = childTreeTiles.get(d);
+			if(t instanceof TreeTile && t != parentTreeTile){
 				TreeTile t2 = (TreeTile)t;
-				Pair<Vector2f, Vector2f> x = t2.getEntranceCoords();
+				Pair<Vector2f, Vector2f> x = t2.getEntranceCoords(true);
 				System.out.println(x.a);
 				System.out.println(x.b);
 				l.add(x.a);
 				l.add(x.b);
 			}
 		}
+		if(l.size() == 2){
+			l.add(Vector2f.ZERO);
+		}
 		poly.setPointCount(l.size());
 		for(int j = 0; j < l.size(); j++){
 			poly.setPoint(j, l.get(j));
 		}
-		System.out.println(poly.getPoints());
+		System.out.println("end");
 		poly.setPosition(pos);
-		window.draw(poly);*/
+		window.draw(poly);
 		//System.out.println(v.b);
 	}
-	
 	public Pair<Vector2f, Vector2f> getEntranceCoords(){
+		return getEntranceCoords(false);
+	}
+	public Pair<Vector2f, Vector2f> getEntranceCoords(boolean reversed){
 		float y = (float) (SIZE * Math.sqrt(3) / 2);
 		Vector2f a = new Vector2f(-width/2, -y);
 		Vector2f b = new Vector2f(width/2, -y);
-		double rads = (parentDirection.getAngle())/180.0*Math.PI;
+		double rads = (parentDirection.getAngle() + (reversed ? 180 : 0))/180.0*Math.PI;
 		Vector2f an = Utilities.rotate(a, Vector2f.ZERO, rads);
 		Vector2f bn = Utilities.rotate(b, Vector2f.ZERO, rads);
 		//System.out.println(an);

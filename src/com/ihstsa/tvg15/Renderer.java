@@ -109,11 +109,11 @@ public class Renderer implements EventHandler {
 			@Override
 			public void handle(Game game, Event event) {
 				Vector2i size = game.window.getSize();
-				if(mousePosition.x < size.x * 0.1){
-					mainView.move((mousePosition.x - (int)(size.x * 0.1))/4, 0);
+				if(mousePosition.x < size.x * 0.15){
+					mainView.move((mousePosition.x - (int)(size.x * 0.15))/4, 0);
 				}
-				if(mousePosition.x > size.x * 0.9){
-					mainView.move((mousePosition.x - (int)(size.x * 0.9))/4, 0);
+				if(mousePosition.x > size.x * 0.85){
+					mainView.move((mousePosition.x - (int)(size.x * 0.85))/4, 0);
 				}
 				if(mousePosition.y < size.y * 0.1){
 					mainView.move(0, (mousePosition.y - (int)(size.y * 0.1))/4);

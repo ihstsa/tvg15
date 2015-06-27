@@ -5,8 +5,11 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.jsfml.graphics.ConstView;
+import org.jsfml.system.Vector2f;
 import org.jsfml.window.Window;
 import org.jsfml.window.event.Event;
+import org.jsfml.window.event.SizeEvent;
 
 /**
  * Handles JSFML events in the game. Allows registry and removal of event handlers,
@@ -22,6 +25,11 @@ public class EventManager
 	public EventManager(Game game)
 	{
 		this.game = game;
+	}
+	
+	public void runInitEvents(){
+		Vector2f defaultView = game.window.getDefaultView().getSize();
+		handleEvent(new SizeEvent(Event.Type.RESIZED.ordinal(), (int)defaultView.x, (int)defaultView.y));
 	}
 	
 	/**

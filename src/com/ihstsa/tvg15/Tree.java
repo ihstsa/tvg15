@@ -5,16 +5,13 @@ import java.util.Set;
 
 public class Tree 
 {
-	private Set<TreeTile> tiles;
+	Set<TreeTile> tiles;
 	private Tile baseTile;
-	private double glucoseProduction;
-	private double waterCapacity;
-	private double glucoseCapacity;
-	private double waterBuffer;
-	private double sunlightProduction;
+	public NutrientManager nutrientManager;
 	HexGrid grid;
 	public Tree(HexGrid grid){
 		tiles = new HashSet<>();
+		nutrientManager = new NutrientManager(this);
 		this.grid = grid;
 	}
 	
@@ -22,10 +19,11 @@ public class Tree
 	{
 		tiles.add(newTile);
 		grid.putTile(newTile);
-		
+		nutrientManager.updateStaticFactors();
+		grid.updateSunlight();
 	}
 	
-	public void setValues()
+	/*public void setValues()
 	{
 		double glucoseProductionSum = 0;
 		double waterCapacitySum = 0;
@@ -44,13 +42,15 @@ public class Tree
 		waterCapacity = waterCapacitySum;
 		glucoseCapacity = glucoseCapacitySum;
 		sunlightProduction = sunlightProductionSum;
-	}
+	}*/
 	
 	public void removeTile(TreeTile tile){
 		tiles.remove(tile);
+		nutrientManager.updateStaticFactors();
+		grid.updateSunlight();
 	}
 	
-	public double getGlucoseProduction()
+	/*public double getGlucoseProduction()
 	{
 		return glucoseProduction;
 	}
@@ -71,5 +71,5 @@ public class Tree
 	public double getSunlightProduction()
 	{
 		return sunlightProduction;
-	}
+	}*/
 }

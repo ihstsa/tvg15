@@ -1,5 +1,11 @@
 package com.ihstsa.tvg15;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.jsfml.graphics.ConstView;
+import org.jsfml.graphics.FloatRect;
+import org.jsfml.graphics.Transformable;
 import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 import org.jsfml.system.Vector3f;
@@ -11,6 +17,8 @@ import org.jsfml.system.Vector3i;
  *
  */
 public final class Utilities {
+	public static final List<GameObject> NO_CHILDREN = new ArrayList<>();
+	
 	
 	// Prevent construction
 	private Utilities(){
@@ -52,5 +60,18 @@ public final class Utilities {
 		double new_ = initial - angle;
 		Vector2f newp = new Vector2f((float)(Math.sin(new_) * radius), (float)(Math.cos(new_) * radius));
 		return newp;
+	}
+	public static void setX(Transformable obj, float x){
+		obj.setPosition(x, obj.getPosition().y);
+	}
+	public static void setY(Transformable obj, float y){
+		obj.setPosition(obj.getPosition().x, y);
+	}
+	public static Vector2f mapPixelToCoords(Vector2i point, ConstView view){
+		FloatRect viewport = view.getViewport();
+		float x = -1.f + 2.f * (point.x - viewport.left) / viewport.width;
+		float y = 1.f - 2.f * (point.y - viewport.top) / viewport.height;
+		System.out.println(x + " " + y);
+		return view.getInverseTransform().transformPoint(x, y);
 	}
 }

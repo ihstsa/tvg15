@@ -11,7 +11,7 @@ import org.jsfml.window.event.Event;
  * @author Paul
  *
  */
-public class Cursor 
+public class Cursor
 {
 	
 	private CircleShape cs;

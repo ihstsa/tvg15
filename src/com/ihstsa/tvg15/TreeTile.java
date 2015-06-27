@@ -15,11 +15,6 @@ public class TreeTile extends TranslucentTile
 {
 	public TreeTile parentTreeTile;
 	public Map<HexDirection, TreeTile> childTreeTiles;
-	public double glucoseProduction = 0;
-	public double glucoseStorage = 0;
-	public double waterStorage = 0;
-	public double sunlightProduction = 0;
-	public double waterBuffer = 0;
 	
 	public HexDirection parentDirection;
 	public int width;
@@ -41,6 +36,22 @@ public class TreeTile extends TranslucentTile
 		}
 	}
 	
+	public double getWaterProduction(){
+		return 10;
+	}
+	public double getLightProduction(){
+		return 0;
+	}
+	public double getUpkeep(){
+		return 1;
+	}
+	public double getWaterStorage(){
+		return 100;
+	}
+	public double getGlucoseStorage(){
+		return 100;
+	}
+	
 	public Tree getTree()
 	{
 		return tree;
@@ -57,15 +68,19 @@ public class TreeTile extends TranslucentTile
 		window.draw(circleShape);//, states);
 		List<Vector2f> l = new ArrayList<Vector2f>();
 		Pair<Vector2f, Vector2f> z = getEntranceCoords();
-		l.add(z.a);
-		l.add(z.b);
+		if(parentTreeTile == null){
+			l.add(z.a);
+			l.add(z.b);
+		}
 		for(HexDirection d : HexDirection.values()){
-			Tile t = childTreeTiles.get(d);
-			if(t instanceof TreeTile && t != parentTreeTile){
+			Tile t = getRelative(d);
+			if(t == parentTreeTile){
+				l.add(z.a);
+				l.add(z.b);
+			}
+			if(childTreeTiles.containsValue(t)){
 				TreeTile t2 = (TreeTile)t;
 				Pair<Vector2f, Vector2f> x = t2.getEntranceCoords(true);
-				System.out.println(x.a);
-				System.out.println(x.b);
 				l.add(x.a);
 				l.add(x.b);
 			}
@@ -77,7 +92,7 @@ public class TreeTile extends TranslucentTile
 		for(int j = 0; j < l.size(); j++){
 			poly.setPoint(j, l.get(j));
 		}
-		System.out.println("end");
+		//System.out.println("end");
 		poly.setPosition(pos);
 		window.draw(poly);
 		//System.out.println(v.b);
@@ -93,7 +108,7 @@ public class TreeTile extends TranslucentTile
 		Vector2f an = Utilities.rotate(a, Vector2f.ZERO, rads);
 		Vector2f bn = Utilities.rotate(b, Vector2f.ZERO, rads);
 		//System.out.println(an);
-		System.out.println(a);
+		//System.out.println(a);
 		/*double s = Math.sin(rads);
 		double c = Math.cos(rads);
 		double axn = a.x * c - a.y * s;

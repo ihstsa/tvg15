@@ -1,23 +1,22 @@
 package com.ihstsa.tvg15;
 
+import org.jsfml.graphics.Color;
+
 public class LeafTile extends TreeTile
 {
-	public double sunlightPerLeaf = .01;
+	public double sunlightPerLeaf = 1;
 	public int numberOfLeaves;
 	
 	public LeafTile(HexGrid grid, AxialVector point, TreeTile parent)
 	{
 		super(grid, point, parent);
 		numberOfLeaves = 1;
+		poly.setFillColor(Color.GREEN);
 	}
 	
-	public double calculateSunlightProduction()
+	public double getLightProduction()
 	{
-		return sunAmount * sunlightPerLeaf * numberOfLeaves;
-	}
-	
-	public void addLeaf()
-	{
-		numberOfLeaves++;
+		//System.out.println(sunFactor * sunlightPerLeaf * numberOfLeaves);
+		return sunFactor * sunlightPerLeaf * numberOfLeaves;
 	}
 }

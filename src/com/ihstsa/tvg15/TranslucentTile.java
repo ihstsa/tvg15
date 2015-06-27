@@ -6,7 +6,7 @@ package com.ihstsa.tvg15;
  */
 public class TranslucentTile extends Tile 
 {
-	public double sunAmount;
+	public double sunFactor;
 	public TranslucentTile(HexGrid grid, AxialVector point) {
 		super(grid, point);
 	}

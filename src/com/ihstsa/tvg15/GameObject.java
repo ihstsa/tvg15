@@ -37,7 +37,9 @@ public abstract class GameObject {
 	 * @return the location
 	 */
 	public abstract Vector2f getPos();
-	public abstract void setPos(Vector2f pos);
+	public void setPos(Vector2f pos){
+		
+	}
 	
 	protected void draw(RenderWindow window, Vector2f offset){
 		Object o = getObject();

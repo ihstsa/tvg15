@@ -115,6 +115,30 @@ public class Tile extends GameObject
 		return null;
 	}
 	
+	public void onmouseover(){
+		circleShape.setOutlineColor(new Color(0x10, 0x10, 0xaf, 0x88));
+		
+	}
+	
+	public void onmouseout(){
+		circleShape.setOutlineColor(new Color(0x10, 0x10, 0xaf, 0x22));
+	}
+	
+	public void onmousedown(){
+		for(HexDirection d : HexDirection.values()){
+			Tile t = getRelative(d);
+			if(t instanceof TreeTile){
+				TreeTile tt = (TreeTile)t;
+				System.out.println(tt.pos.q + " " + tt.pos.r);
+				System.out.println(pos.q + " " + pos.r);
+				new TreeTile(grid, pos, tt);
+				break;
+			}
+		}
+		circleShape.setOutlineColor(Color.BLACK);
+
+	}
+	
 	public void destroy(){
 
 	}

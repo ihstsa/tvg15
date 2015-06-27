@@ -65,7 +65,7 @@ public class HexGrid extends GameObject
 			double sunlight = 1;
 			for(TranslucentTile t : translucentTiles)
 			{
-				t.sunAmount = sunlight;
+				t.sunFactor = sunlight;
 				sunlight *= (1 - t.getOpacity());
 			}
 		}
@@ -108,6 +108,7 @@ public class HexGrid extends GameObject
 		HashMap<Integer, Tile> m = grid.get(tile.pos.q);
 		if(m == null) return;
 		m.remove(tile.pos.r);
+		tiles.remove(tile);
 	}
 	
 	/**

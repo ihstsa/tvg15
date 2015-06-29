@@ -113,7 +113,7 @@ public class GUI extends GameObject{
 			NutrientManager nm = tree.nutrientManager;
 			glucose.setFrac((float) (nm.currentGlucose / nm.maxGlucose));
 			water.setFrac((float) (nm.currentWater / nm.maxWater));
-			light.setFrac((float)nm.getTimeLightFactor());
+			light.setFrac((float) nm.getTimeLightFactor());
 		}
 	}
 	

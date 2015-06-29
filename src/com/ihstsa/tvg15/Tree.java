@@ -1,6 +1,8 @@
 package com.ihstsa.tvg15;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Tree 
@@ -9,9 +11,12 @@ public class Tree
 	private Tile baseTile;
 	public NutrientManager nutrientManager;
 	HexGrid grid;
+	public int treewidth = TreeTile.TAPER;
+	public List<Upgrade> possibleUpgrades;
 	public Tree(HexGrid grid){
 		tiles = new HashSet<>();
 		nutrientManager = new NutrientManager(this);
+		possibleUpgrades = new ArrayList<>();
 		this.grid = grid;
 	}
 	
@@ -20,7 +25,16 @@ public class Tree
 		tiles.add(newTile);
 		grid.putTile(newTile);
 		nutrientManager.updateStaticFactors();
+		updateLeaves();
 		grid.updateSunlight();
+	}
+	
+	public List<Upgrade> updatePossibleUpgrades(){
+		possibleUpgrades.clear();
+		for(Upgrade u : Upgrade.values()){
+			if(u.cost < nutrientManager.currentGlucose) possibleUpgrades.add(u);
+		}
+		return possibleUpgrades;
 	}
 	
 	/*public void setValues()
@@ -43,6 +57,14 @@ public class Tree
 		glucoseCapacity = glucoseCapacitySum;
 		sunlightProduction = sunlightProductionSum;
 	}*/
+	
+	public void updateLeaves(){
+		for(TreeTile t : tiles){
+			if(t instanceof LeafTile){
+				((LeafTile)t).updateLeaves();
+			}
+		}
+	}
 	
 	public void removeTile(TreeTile tile){
 		tiles.remove(tile);

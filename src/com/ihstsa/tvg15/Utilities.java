@@ -3,6 +3,7 @@ package com.ihstsa.tvg15;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jsfml.graphics.Color;
 import org.jsfml.graphics.ConstView;
 import org.jsfml.graphics.FloatRect;
 import org.jsfml.graphics.Transformable;
@@ -74,4 +75,15 @@ public final class Utilities {
 		System.out.println(x + " " + y);
 		return view.getInverseTransform().transformPoint(x, y);
 	}
+	public static Color colorFromHex(int i){
+		return new Color(i >> 16, (i >> 8) & 0xFF, i & 0xFF);
+	}
+	
+	public static <T> T randomFromList(List<T> list){
+		return list.get(Game.random.nextInt(list.size()));
+	}
+	public static <T> T randomFromList(T[] list){
+		return list[Game.random.nextInt(list.length)];
+	}
+
 }

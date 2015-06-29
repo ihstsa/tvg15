@@ -35,7 +35,7 @@ public class Renderer implements EventHandler {
 	public Renderer(Game game){
 		this(game, new GUI(game), new RootObject());
 	}
-	public Renderer(Game game, GUI gui, GameObject root){
+	public Renderer(Game game, final GUI gui, GameObject root){
 		this.game = game;
 		this.gui = gui;
 		this.root = root;
@@ -91,7 +91,6 @@ public class Renderer implements EventHandler {
 				mousePosition = mbe.position;
 				Vector2f viewCoords = game.window.mapPixelToCoords(mbe.position, mainView);
 				Vector2f gridOffset = game.grid.getAbsoluteOffset();
-				System.out.println(gridOffset);
 				Vector2f gridRelative = Vector2f.sub(viewCoords, gridOffset);
 				Tile tile = game.grid.tileForPixel(new Vector2i(gridRelative));
 				gui.cursor.spin = tile != null;

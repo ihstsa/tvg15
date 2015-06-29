@@ -12,10 +12,12 @@ import org.jsfml.system.Vector2f;
 public class Tile extends GameObject
 {
 	public static final int SIZE = 150;
-	private static final Color outlineColor = new Color(0x10, 0x10, 0xaf, 0x22);
+	private static final Color inactive_c = new Color(0x10, 0x10, 0xaf, 0x22);
+	private static final Color active_c = new Color(0x10, 0x10, 0xaf, 0x88);
 	public AxialVector pos;
-	private HexGrid grid;
+	protected HexGrid grid;
 	CircleShape circleShape;
+	private TreeTile activated_by;
 	//Text text;
 	public static Comparator<Tile> rComparator = new Comparator<Tile>(){
 		@Override
@@ -37,9 +39,10 @@ public class Tile extends GameObject
 	{
 		this.grid = grid;
 		circleShape = new CircleShape(SIZE-3, 6);
-		circleShape.setOutlineColor(outlineColor);
+		circleShape.setOutlineColor(inactive_c);
 		circleShape.setOutlineThickness(3);
 		circleShape.rotate(30);
+		circleShape.setFillColor(Color.TRANSPARENT);
 		/*text = new Text("" + point.q + " " + point.r, Game.arial, 24);
 		text.setOrigin(0.5f, 0.5f);
 		text.setColor(Color.BLACK);*/
@@ -116,31 +119,32 @@ public class Tile extends GameObject
 	}
 	
 	public void onmouseover(){
-		circleShape.setOutlineColor(new Color(0x10, 0x10, 0xaf, 0x88));
-		
+		Game.instance.ai.pos = pos;
 	}
 	
 	public void onmouseout(){
-		circleShape.setOutlineColor(new Color(0x10, 0x10, 0xaf, 0x22));
+		
 	}
 	
 	public void onmousedown(){
-		for(HexDirection d : HexDirection.values()){
-			Tile t = getRelative(d);
-			if(t instanceof TreeTile){
-				TreeTile tt = (TreeTile)t;
-				System.out.println(tt.pos.q + " " + tt.pos.r);
-				System.out.println(pos.q + " " + pos.r);
-				new TreeTile(grid, pos, tt);
-				break;
-			}
+		if(activated_by != null){
+			activated_by.activated_click(this);
 		}
-		circleShape.setOutlineColor(Color.BLACK);
-
 	}
 	
 	public void destroy(){
 
+	}
+	public TreeTile getActivator() {
+		return activated_by;
+	}
+	public void activate(TreeTile t) {
+		circleShape.setOutlineColor(active_c);
+		this.activated_by = t;
+	}
+	public void deactivate(){
+		circleShape.setOutlineColor(inactive_c);
+		this.activated_by = null;
 	}
 
 }

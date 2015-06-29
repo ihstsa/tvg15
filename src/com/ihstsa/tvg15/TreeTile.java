@@ -20,20 +20,32 @@ public class TreeTile extends TranslucentTile
 	public int width;
 	protected Tree tree;
 	ConvexShape poly;
+	public static final int TAPER = 12;
+	public List<Vector2f> vertices = new ArrayList<>();
+	public Pair<Vector2f, Vector2f> entranceCoords;
+	protected boolean enemy;
 	
-	public TreeTile(HexGrid grid, AxialVector point, TreeTile parent) 
+	public TreeTile(HexGrid grid, AxialVector point, TreeTile parent, boolean enemy) 
 	{
 		super(grid, point);
+		this.enemy = enemy;
 		parentTreeTile = parent;
 		childTreeTiles = new HashMap<>();
 		poly = new ConvexShape();
-		poly.setFillColor(Color.RED);
+		poly.setFillColor(Utilities.colorFromHex(enemy ? 0x946fdc : 0x964B00));
 		if(parent != null){
-			width = parent.width - 20;
+			width = parent.width - TAPER;
 			tree = parent.tree;
-			parentTreeTile.addChild(this);
+			while((tree.treewidth + width) < TAPER){
+				tree.treewidth += TAPER;
+			}
 			parentDirection = getDirectionTo(parentTreeTile);
+			parentTreeTile.addChild(this);
 		}
+	}
+	
+	public TreeTile(HexGrid grid, AxialVector point, TreeTile parent){ 
+		this(grid, point, parent, false);
 	}
 	
 	public double getWaterProduction(){
@@ -62,35 +74,39 @@ public class TreeTile extends TranslucentTile
 		tree.addTile(t);
 	}
 	
-	@Override
-	public void draw(RenderWindow window, Vector2f pos){
-		circleShape.setPosition(pos);
-		window.draw(circleShape);//, states);
-		List<Vector2f> l = new ArrayList<Vector2f>();
-		Pair<Vector2f, Vector2f> z = getEntranceCoords();
+	public void updateVertices(){
+		vertices.clear();
+		entranceCoords = getEntranceCoords();
 		if(parentTreeTile == null){
-			l.add(z.a);
-			l.add(z.b);
+			vertices.add(entranceCoords.a);
+			vertices.add(entranceCoords.b);
 		}
 		for(HexDirection d : HexDirection.values()){
 			Tile t = getRelative(d);
 			if(t == parentTreeTile){
-				l.add(z.a);
-				l.add(z.b);
+				vertices.add(entranceCoords.a);
+				vertices.add(entranceCoords.b);
 			}
 			if(childTreeTiles.containsValue(t)){
 				TreeTile t2 = (TreeTile)t;
 				Pair<Vector2f, Vector2f> x = t2.getEntranceCoords(true);
-				l.add(x.a);
-				l.add(x.b);
+				vertices.add(x.a);
+				vertices.add(x.b);
 			}
 		}
-		if(l.size() == 2){
-			l.add(Vector2f.ZERO);
+		if(vertices.size() == 2){
+			vertices.add(Vector2f.ZERO);
 		}
-		poly.setPointCount(l.size());
-		for(int j = 0; j < l.size(); j++){
-			poly.setPoint(j, l.get(j));
+	}
+	
+	@Override
+	public void draw(RenderWindow window, Vector2f pos){
+		circleShape.setPosition(pos);
+		window.draw(circleShape);//, states);
+		updateVertices();
+		poly.setPointCount(vertices.size());
+		for(int j = 0; j < vertices.size(); j++){
+			poly.setPoint(j, vertices.get(j));
 		}
 		//System.out.println("end");
 		poly.setPosition(pos);
@@ -102,8 +118,8 @@ public class TreeTile extends TranslucentTile
 	}
 	public Pair<Vector2f, Vector2f> getEntranceCoords(boolean reversed){
 		float y = (float) (SIZE * Math.sqrt(3) / 2);
-		Vector2f a = new Vector2f(-width/2, -y);
-		Vector2f b = new Vector2f(width/2, -y);
+		Vector2f a = new Vector2f(-(width+tree.treewidth)/2, -y);
+		Vector2f b = new Vector2f((width+tree.treewidth)/2, -y);
 		double rads = (parentDirection.getAngle() + (reversed ? 180 : 0))/180.0*Math.PI;
 		Vector2f an = Utilities.rotate(a, Vector2f.ZERO, rads);
 		Vector2f bn = Utilities.rotate(b, Vector2f.ZERO, rads);
@@ -120,6 +136,27 @@ public class TreeTile extends TranslucentTile
 	
 	public void destroy(){
 		tree.removeTile(this);
+	}
+	
+	public void onmousedown(){
+		for(HexDirection x : HexDirection.values()){
+			if(x == HexDirection.BOT) continue;
+			Tile t = getRelative(x);
+			if(!(t instanceof TreeTile)){
+				getRelative(x).activate(this);
+			}
+		}
+	}
+
+	public void activated_click(Tile tile) {
+		for(HexDirection x : HexDirection.values()){
+			if(x == HexDirection.BOT) continue;
+			getRelative(x).deactivate();
+		}
+		if(tree.nutrientManager.currentGlucose >= 100){
+			tree.nutrientManager.currentGlucose -=100;
+			new LeafTile(this.grid, tile.pos, this, enemy);
+		}
 	}
 
 }
